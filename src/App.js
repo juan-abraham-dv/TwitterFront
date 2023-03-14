@@ -1,7 +1,7 @@
-import axios from "axios";
 import { Routes, Route } from "react-router-dom";
 //import store from "./storeConfig";
 import Home from "./components/Home";
+
 function App() {
   return (
     //  <Provider store={store}>
