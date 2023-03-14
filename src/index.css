@@ -10,7 +10,7 @@
 }
 
 .background-color-twitter {
-  background-color: #1d9bf0;
+  background-color: #1d9bf0 !important;
 }
 
 .submitBtn:hover {
