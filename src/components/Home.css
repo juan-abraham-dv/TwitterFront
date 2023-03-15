@@ -1,0 +1,48 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.send-tweet-box {
+  width: 100%;
+  height: auto;
+  border-bottom: 0.5px solid #f3f3f3;
+  padding: 0;
+}
+
+.send-tweet-box-title {
+  font-size: 1.3rem;
+}
+.new-tweet-imput {
+  width: 100%;
+  border: none;
+}
+
+.all-tweets-box {
+  border-bottom: 0.5px solid #f3f3f3;
+}
+.all-tweets-img-box {
+  text-align: center;
+  margin-right: 10px;
+}
+
+.img-profile {
+  border-radius: 50%;
+  width: 80%;
+}
+.img-profile-tweet {
+  border-radius: 50%;
+  width: 45px;
+}
+
+.send-tweet-btn {
+  margin-left: auto;
+}
+
+.liked {
+  color: rgb(253, 41, 179);
+  font-size: 1rem;
+}
+.unliked {
+  font-size: 1rem;
+}
