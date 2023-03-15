@@ -1,11 +1,10 @@
 import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
 import { storeUser } from "../redux/userSlice";
 
 export default function SignUp() {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.users);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -13,7 +12,6 @@ export default function SignUp() {
   const [image, setImage] = useState(null);
   const [password, setPassword] = useState("");
   const [loggedUserData, setLoggedUserData] = useState(null);
-  console.log(user);
   const handleUserCreation = async (event) => {
     event.preventDefault();
     const formData = new FormData();

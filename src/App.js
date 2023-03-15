@@ -3,6 +3,7 @@ import { Provider } from "react-redux";
 import store from "./redux/storeConfig";
 import Home from "./components/Home";
 import SignUp from "./components/SignUp";
+import SignIn from "./components/SignIn";
 // import Profiles from "./components/Profiles";
 
 function App() {
@@ -12,10 +13,9 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="signup" element={<SignUp />} />
-          {/* <Route path="login" element={<SignIn />}/> */}
+          <Route path="login" element={<SignIn />} />
         </Routes>
       </div>
-      //
     </Provider>
   );
 }

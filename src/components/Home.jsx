@@ -10,7 +10,6 @@ function Home() {
   React.useEffect(() => {
     const getTweets = async () => {
       const response = await axios.get(`http://localhost:8000/tweets`);
-      console.log(response.data.tweets);
       setAllTweets(response.data.tweets);
     };
     getTweets();
@@ -43,7 +42,7 @@ function Home() {
           </div>
           <div>
             {allTweets.map((tweet) => (
-              <div className="m-3">
+              <div key={tweet._id} className="m-3">
                 <div className="row all-tweets-box">
                   <div className="col-1 all-tweets-img-box">
                     <img
@@ -59,11 +58,11 @@ function Home() {
                     </small>
                     <p> {tweet.content}</p>
                     <small>
-                      <i class="bi bi-heart-fill unliked"></i>
+                      <i className="bi bi-heart-fill unliked"></i>
                       <small className="ms-1 unliked">
                         {tweet.likes.length}
                       </small>
-                      <i class="bi bi-heart-fill liked"></i>
+                      <i className="bi bi-heart-fill liked"></i>
                       <small className="ms-1 liked">{tweet.likes.length}</small>
                     </small>
                   </div>
