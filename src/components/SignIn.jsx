@@ -1,52 +1,90 @@
-import React from "react";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { useState, useEffect } from "react";
+import { storeUser } from "../redux/userSlice";
+import { useNavigate } from "react-router-dom";
 
 export default function SignIn() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loggedUserData, setLoggedUserData] = useState(null);
+
+  const handleUserLogin = async (event) => {
+    event.preventDefault();
+    const formData = { email, password };
+
+    const response = await axios.post(
+      `${process.env.REACT_APP_BACKEND_URL}/users/tokens`,
+      formData
+    );
+
+    setLoggedUserData(response.data);
+  };
+
+  useEffect(() => {
+    if (loggedUserData !== null && loggedUserData !== "") {
+      dispatch(storeUser({ loggedUserData }));
+      navigate("/");
+    }
+  }, [loggedUserData]);
+
   return (
-    <div class="register-main-container register-background">
-      <div class="w-75">
-        <div class="row rounded bg-white">
-          <div class="d-none d-md-block col col-md-5 background-color-twitter rounded-start p-5">
-            <div class="d-flex flex-column h-100">
-              <i class="bi bi-twitter text-white display-5"></i>
-              <h2 class="mt-auto text-white">Hey! Nice to see you again 🥰</h2>
+    <div className="register-main-container register-background">
+      <div className="w-75">
+        <div className="row rounded bg-white">
+          <div className="d-none d-md-block col col-md-5 background-color-twitter rounded-start p-5">
+            <div className="d-flex flex-column h-100">
+              <i className="bi bi-twitter text-white display-5"></i>
+              <h2 className="mt-auto text-white">
+                Hey! Nice to see you again 🥰
+              </h2>
             </div>
           </div>
-          <div class="register-form-column col col-sm-12 col-md-6 col-lg-7 p-5">
-            <div class="d-flex justify-content-center">
-              <form action="/login" method="POST" class="register-form">
-                <div class="mb-4">
-                  <h1 class="register-main-title">Log In</h1>
-                  <p class="small-text">Ready to start using Twitter?</p>
+          <div className="register-form-column col col-sm-12 col-md-6 col-lg-7 p-5">
+            <div className="d-flex justify-content-center">
+              <form
+                onSubmit={(event) => handleUserLogin(event)}
+                className="register-form"
+              >
+                <div className="mb-4">
+                  <h1 className="register-main-title">Log In</h1>
+                  <p className="small-text">Ready to start using Twitter?</p>
                 </div>
-                <div class="input-group mb-3">
+                <div className="input-group mb-3">
                   <input
-                    class="form-control"
+                    className="form-control"
                     type="email"
                     name="email"
                     placeholder="Email"
                     required
+                    value={email}
+                    onChange={(event) => setEmail(event.target.value)}
                   />
                 </div>
-                <div class="input-group mb-3">
+                <div className="input-group mb-3">
                   <input
-                    class="form-control"
+                    className="form-control"
                     type="password"
                     name="password"
                     placeholder="Password"
                     required
+                    value={password}
+                    onChange={(event) => setPassword(event.target.value)}
                   />
                 </div>
-                <div class="mb-3 mt-5">
+                <div className="mb-3 mt-5">
                   <button
                     type="submit"
-                    class="w-100 btn rounded-pill text-white background-color-twitter submitBtn mb-5"
+                    className="w-100 btn rounded-pill text-white background-color-twitter submitBtn mb-5"
                   >
                     Log In
                   </button>
 
-                  <p class="text-center">
+                  <p className="text-center">
                     Don't have an account?
-                    <a href="/register" class="text-decoration-none">
+                    <a href="/register" className="text-decoration-none">
                       Sign up
                     </a>
                   </p>

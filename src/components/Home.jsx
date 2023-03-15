@@ -1,16 +1,25 @@
-import React from "react";
+import { useEffect, useState } from "react";
 import LeftPartial from "./LeftPartial";
 import RightPartial from "./RightPartial";
 import axios from "axios";
 import "./Home.css";
 import fakerprofile from "./img/fakeprofile.jpg";
+import { useSelector } from "react-redux";
 
 function Home() {
-  const [allTweets, setAllTweets] = React.useState([]);
-  React.useEffect(() => {
+  const [tweets, setTweets] = useState([]);
+  const loggedUser = useSelector((state) => state.user[0]);
+
+  useEffect(() => {
     const getTweets = async () => {
-      const response = await axios.get(`http://localhost:8000/tweets`);
-      setAllTweets(response.data.tweets);
+      const response = await axios({
+        method: "GET",
+        url: `${process.env.REACT_APP_BACKEND_URL}/tweets`,
+        headers: {
+          Authorization: `Bearer ${loggedUser.token}`,
+        },
+      });
+      setTweets(response.data.tweets);
     };
     getTweets();
   }, []);
@@ -41,7 +50,7 @@ function Home() {
             </button>
           </div>
           <div>
-            {allTweets.map((tweet) => (
+            {tweets.map((tweet) => (
               <div key={tweet._id} className="m-3">
                 <div className="row all-tweets-box">
                   <div className="col-1 all-tweets-img-box">
