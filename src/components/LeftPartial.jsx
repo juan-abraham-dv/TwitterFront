@@ -17,7 +17,7 @@ function LeftPartial() {
               className="text-decoration-none text-black home-left-partial responsive-md"
             >
               <span>
-                <i class="bi bi-house-door me-3"></i>Home
+                <i className="bi bi-house-door me-3"></i>Home
               </span>
             </a>
             <a
@@ -25,7 +25,7 @@ function LeftPartial() {
               className="icon-responsive ms-2 text-decoration-none text-black responsive-lg"
             >
               <span>
-                <i class="bi bi-house-door me-3"></i>
+                <i className="bi bi-house-door me-3"></i>
               </span>
             </a>
           </div>

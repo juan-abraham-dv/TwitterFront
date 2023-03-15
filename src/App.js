@@ -3,6 +3,7 @@ import { Provider } from "react-redux";
 import store from "./redux/storeConfig";
 import Home from "./components/Home";
 import SignUp from "./components/SignUp";
+// import Profiles from "./components/Profiles";
 
 function App() {
   return (
