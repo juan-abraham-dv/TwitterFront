@@ -17,27 +17,27 @@ function LeftPartial() {
             <i className="bi bi-twitter twitterSymbol fs-4"></i>
           </div>
           <div className="row mt-4">
-            <a
-              href="/"
-              className="text-decoration-none text-black home-left-partial responsive-md"
+            <Link
+              to={`/`}
+              className="text-decoration-none text-black home-left-partial responsive-md "
             >
               <span>
                 <i className="bi bi-house-door me-3"></i>Home
               </span>
-            </a>
-            <a
-              href="/"
-              className="icon-responsive ms-2 text-decoration-none text-black responsive-lg"
+            </Link>
+            <Link
+              to={`/`}
+              className="text-decoration-none text-black home-left-partial responsive-lg ms-3"
             >
               <span>
                 <i className="bi bi-house-door me-3"></i>
               </span>
-            </a>
+            </Link>
           </div>
           <div className="row mt-4">
             <Link
               to={`profile/${loggedUser.id}`}
-              className="profile-link responsive-md"
+              className="text-decoration-none text-black home-left-partial responsive-md "
             >
               <span>
                 <i className="bi bi-person me-3"></i>Profile
@@ -46,7 +46,7 @@ function LeftPartial() {
 
             <Link
               to={`profile/${loggedUser.id}`}
-              className="profile-link responsive-lg "
+              className="text-decoration-none text-black home-left-partial responsive-lg ms-3"
             >
               <span>
                 <i className="bi bi-person me-3"></i>
