@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 function Home() {
   const [tweets, setTweets] = useState([]);
   const loggedUser = useSelector((state) => state.user[0]);
-
+  console.log(loggedUser);
   useEffect(() => {
     const getTweets = async () => {
       const response = await axios({
@@ -23,7 +23,7 @@ function Home() {
     };
     getTweets();
   }, []);
-
+  console.log(tweets);
   return (
     <div className="container">
       <div className="row gx-5">

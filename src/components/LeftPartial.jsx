@@ -1,5 +1,10 @@
 import React from "react";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 function LeftPartial() {
+  const loggedUser = useSelector((state) => state.user[0]);
+
+  console.log(loggedUser);
   return (
     <div className="col-3 left-partial">
       <div className="row">
@@ -30,22 +35,15 @@ function LeftPartial() {
             </a>
           </div>
           <div className="row mt-4">
-            <a
-              href="/profile/<%= user.username %>"
-              className="text-decoration-none text-black profile-left-partial responsive-md"
-            >
+            <Link to={`profile/${loggedUser.id}`}>
               <span>
                 <i className="bi bi-person me-3"></i>Profile
               </span>
-            </a>
-            <a
-              href="/profile/<%= user.username %>"
-              className="icon-responsive ms-2 text-decoration-none text-black responsive-lg"
-            >
+
               <span>
                 <i className="bi bi-person me-3"></i>
               </span>
-            </a>
+            </Link>
           </div>
           <div className="row mt-4">
             <div>
