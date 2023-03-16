@@ -2,14 +2,14 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 function LeftPartial() {
-  const loggedUser = useSelector((state) => state.user[0]);
+  const loggedUser = useSelector((state) => state.user);
 
   console.log(loggedUser);
   return (
     <div className="col-3 left-partial">
       <div className="row">
         <div className="col-md-4 col-3"></div>
-        <div className="col-md-6 col-8 d-flex flex-column">
+        <div className="col-md-6 col-8 d-flex flex-column icon-box">
           <div className="row mt-2 mb-1 responsive-md">
             <i className="bi bi-twitter twitterSymbol fs-4"></i>
           </div>
@@ -17,29 +17,37 @@ function LeftPartial() {
             <i className="bi bi-twitter twitterSymbol fs-4"></i>
           </div>
           <div className="row mt-4">
-            <a
-              href="/"
-              className="text-decoration-none text-black home-left-partial responsive-md"
+            <Link
+              to={`/`}
+              className="text-decoration-none text-black home-left-partial responsive-md "
             >
               <span>
                 <i className="bi bi-house-door me-3"></i>Home
               </span>
-            </a>
-            <a
-              href="/"
-              className="icon-responsive ms-2 text-decoration-none text-black responsive-lg"
+            </Link>
+            <Link
+              to={`/`}
+              className="text-decoration-none text-black home-left-partial responsive-lg ms-3"
             >
               <span>
                 <i className="bi bi-house-door me-3"></i>
               </span>
-            </a>
+            </Link>
           </div>
           <div className="row mt-4">
-            <Link to={`profile/${loggedUser.id}`}>
+            <Link
+              to={`profile/${loggedUser.id}`}
+              className="text-decoration-none text-black home-left-partial responsive-md "
+            >
               <span>
                 <i className="bi bi-person me-3"></i>Profile
               </span>
+            </Link>
 
+            <Link
+              to={`profile/${loggedUser.id}`}
+              className="text-decoration-none text-black home-left-partial responsive-lg ms-3"
+            >
               <span>
                 <i className="bi bi-person me-3"></i>
               </span>

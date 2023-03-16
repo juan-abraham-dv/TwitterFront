@@ -46,3 +46,20 @@
 .unliked {
   font-size: 1rem;
 }
+.all-tweets-box-name {
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.all-tweets-box-username {
+  font-size: 0.9rem;
+}
+
+.profile-link {
+  text-decoration: none;
+  color: black;
+}
+
+.icon-box {
+  height: 100vh;
+}
