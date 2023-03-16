@@ -9,7 +9,7 @@ function LeftPartial() {
     <div className="col-3 left-partial">
       <div className="row">
         <div className="col-md-4 col-3"></div>
-        <div className="col-md-6 col-8 d-flex flex-column">
+        <div className="col-md-6 col-8 d-flex flex-column icon-box">
           <div className="row mt-2 mb-1 responsive-md">
             <i className="bi bi-twitter twitterSymbol fs-4"></i>
           </div>
@@ -35,11 +35,19 @@ function LeftPartial() {
             </a>
           </div>
           <div className="row mt-4">
-            <Link to={`profile/${loggedUser.id}`}>
+            <Link
+              to={`profile/${loggedUser.id}`}
+              className="profile-link responsive-md"
+            >
               <span>
                 <i className="bi bi-person me-3"></i>Profile
               </span>
+            </Link>
 
+            <Link
+              to={`profile/${loggedUser.id}`}
+              className="profile-link responsive-lg "
+            >
               <span>
                 <i className="bi bi-person me-3"></i>
               </span>

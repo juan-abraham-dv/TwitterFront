@@ -29,12 +29,12 @@ function Home() {
       <div className="row gx-5">
         <LeftPartial />
         <div className="col-5 p-0">
-          <div className="send-tweet-box p-3">
+          <div className="send-tweet-box p-3 ">
             <h1 className="send-tweet-box-title">Home</h1>
             <div className="col-2 d-inline-block mt-2 mb-2">
               <img
                 alt="Cualquier cosa"
-                src={fakerprofile}
+                src={loggedUser.image}
                 className="img-profile"
               />
             </div>
@@ -61,7 +61,14 @@ function Home() {
                     />
                   </div>
                   <div className="col-10 mb-3">
-                    <small>@{tweet.author.username}</small>
+                    <small className="all-tweets-box-name">
+                      {tweet.author.firstname} {tweet.author.lastname}
+                    </small>
+                    <small className="all-tweets-box-username">
+                      {" "}
+                      @{tweet.author.username}
+                    </small>
+                    <small> {tweet.createdAt}</small>
                     <p> {tweet.content}</p>
                     <small>
                       <i className="bi bi-heart-fill unliked"></i>
