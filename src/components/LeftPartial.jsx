@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 function LeftPartial() {
-  const loggedUser = useSelector((state) => state.user[0]);
+  const loggedUser = useSelector((state) => state.user);
 
   console.log(loggedUser);
   return (

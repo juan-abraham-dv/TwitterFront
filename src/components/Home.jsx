@@ -8,8 +8,7 @@ import { useSelector } from "react-redux";
 
 function Home() {
   const [tweets, setTweets] = useState([]);
-  const loggedUser = useSelector((state) => state.user[0]);
-  console.log(loggedUser);
+  const loggedUser = useSelector((state) => state.user);
   useEffect(() => {
     const getTweets = async () => {
       const response = await axios({
@@ -19,11 +18,12 @@ function Home() {
           Authorization: `Bearer ${loggedUser.token}`,
         },
       });
-      setTweets(response.data.tweets);
+      setTweets(response.data);
+      console.log(response.data);
     };
     getTweets();
   }, []);
-  console.log(tweets);
+
   return (
     <div className="container">
       <div className="row gx-5">
@@ -51,20 +51,17 @@ function Home() {
           </div>
           <div>
             {tweets.map((tweet) => (
-              <div key={tweet._id} className="m-3">
+              <div key={tweet.id} className="m-3">
                 <div className="row all-tweets-box">
                   <div className="col-1 all-tweets-img-box">
                     <img
                       alt="Cualquier cosa"
-                      src={fakerprofile}
+                      src={tweet.author.image}
                       className="img-profile-tweet"
                     />
                   </div>
                   <div className="col-10 mb-3">
-                    <small>
-                      {tweet.author}
-                      {tweet.createdAt}
-                    </small>
+                    <small>@{tweet.author.username}</small>
                     <p> {tweet.content}</p>
                     <small>
                       <i className="bi bi-heart-fill unliked"></i>

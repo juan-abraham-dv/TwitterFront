@@ -1,13 +1,15 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, current } from "@reduxjs/toolkit";
 
 const userSlice = createSlice({
   name: "user",
-  initialState: [],
+  initialState: {}, // para no loguearse poner un objeto con info similar a un usario
 
   reducers: {
     storeUser(state, action) {
-      const { loggedUserData } = action.payload;
-      state.push(loggedUserData);
+      //const loggedUserData = action.payload;
+      console.log(current(state));
+      console.log(action.payload);
+      return { ...action.payload };
     },
   },
 });

@@ -20,15 +20,20 @@ export default function SignIn() {
       formData
     );
 
-    setLoggedUserData(response.data);
+    //setLoggedUserData(response.data);
+    console.log(response.data);
+    dispatch(storeUser(response.data));
+    navigate("/");
   };
 
-  useEffect(() => {
+  {
+    /* useEffect(() => {
     if (loggedUserData !== null && loggedUserData !== "") {
       dispatch(storeUser({ loggedUserData }));
       navigate("/");
     }
-  }, [loggedUserData]);
+  }, [loggedUserData]); */
+  }
 
   return (
     <div className="register-main-container register-background">
