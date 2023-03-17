@@ -9,7 +9,20 @@ import noProfileiImage from "./img/fakeprofile.jpg";
 function Home() {
   console.log(noProfileiImage);
   const [tweets, setTweets] = useState([]);
+  const [content, setContent] = useState("");
   const loggedUser = useSelector((state) => state.user);
+
+  const handleCreateTweet = async (event) => {
+    event.preventDefault();
+
+    const formData = { content, loggedUser }; // Faltaría agregar el "author" del tweet
+
+    await axios.post(`${process.env.REACT_APP_BACKEND_URL}/tweets/`, formData);
+
+    //setLoggedUserData(response.data);
+    // dispatch(storeUser(response.data));
+    // navigate("/");
+  };
 
   useEffect(() => {
     const getTweets = async () => {
@@ -41,16 +54,24 @@ function Home() {
                 className="img-profile"
               />
             </div>
-            <div className="col-10 d-inline-block">
-              <input
-                type="text"
-                placeholder="What's happening?"
-                className="new-tweet-imput fs-5"
-              />
-            </div>
-            <button className="d-block ms-auto btn btn-home text-white rounded-pill px-3 fw-bold">
-              Tweet
-            </button>
+
+            <form onSubmit={(event) => handleCreateTweet(event)}>
+              <div className="col-10 d-inline-block">
+                <input
+                  type="text"
+                  placeholder="What's happening?"
+                  className="new-tweet-imput fs-5"
+                  value={content}
+                  onChange={(event) => setContent(event.target.value)}
+                />
+              </div>
+              <button
+                type="submit"
+                className="d-block ms-auto btn btn-home text-white rounded-pill px-3 fw-bold"
+              >
+                Tweet
+              </button>
+            </form>
           </div>
           <div>
             {tweets.map((tweet) => {

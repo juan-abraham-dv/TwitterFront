@@ -12,6 +12,7 @@ export default function SignUp() {
   const [image, setImage] = useState(null);
   const [password, setPassword] = useState("");
   const [loggedUserData, setLoggedUserData] = useState(null);
+
   const handleUserCreation = async (event) => {
     event.preventDefault();
     const formData = new FormData();
