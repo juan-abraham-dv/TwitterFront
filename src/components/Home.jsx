@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-// import LeftPartial from "./LeftPartial";
+import LeftPartial from "./LeftPartial";
 import RightPartial from "./RightPartial";
 import axios from "axios";
 import "./Home.css";
@@ -27,7 +27,7 @@ function Home() {
   return (
     <div className="container">
       <div className="row gx-5">
-        {/* <LeftPartial /> */}
+        <LeftPartial />
         <div className="col-5 p-0">
           <div className="send-tweet-box p-3 ">
             <h1 className="send-tweet-box-title">Home</h1>
