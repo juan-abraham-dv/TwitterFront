@@ -4,29 +4,30 @@ import axios from "axios";
 import LeftPartial from "./LeftPartial";
 import RightPartial from "./RightPartial";
 import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 
 export default function Profile() {
-  /*const timeDiffInMinutes = Math.round(
-    (Date.now() - tweet.createdAt.getTime()) / (1000 * 60)
-  );
-  const timeDiffInHours = Math.round(timeDiffInMinutes / 60);*/
   const [tweets, setTweets] = useState([]);
+  const [user, setUser] = useState();
   const loggedUser = useSelector((state) => state.user);
+  const params = useParams();
+
   useEffect(() => {
     const getTweets = async () => {
       const response = await axios({
         method: "GET",
-        url: `${process.env.REACT_APP_BACKEND_URL}/tweets/${loggedUser.id}`,
+        url: `${process.env.REACT_APP_BACKEND_URL}/tweets/${params.id}`,
         headers: {
           Authorization: `Bearer ${loggedUser.token}`,
         },
       });
-      setTweets(response.data);
-      console.log(loggedUser.id);
+      setTweets(response.data.tweets);
+      setUser(response.data.user);
     };
     getTweets();
   }, []);
-
+  console.log(tweets);
+  console.log(user);
   return (
     <div className="home-main-container">
       <div className="row gx-5">
@@ -37,7 +38,7 @@ export default function Profile() {
             <div className="row w-100 profile-info px-3">
               <div className="col-5 profile-info-subcontainer-left">
                 <img
-                  src={loggedUser.image}
+                  src={tweets.image}
                   className="profile-photo rounded-circle"
                   alt=""
                 />
@@ -97,36 +98,72 @@ export default function Profile() {
               </div>
             </div>
           </div>
-          {tweets.map((tweet) => (
-            <div key={tweet.id} className="m-3">
-              <div className="row all-tweets-box">
-                <div className="col-2 all-tweets-img-box">
-                  <img
-                    alt={tweet.author.username}
-                    src={tweet.author.image}
-                    className="img-profile-tweet"
-                  />
-                </div>
-                <div className="col-10 mb-3">
-                  <small className="all-tweets-box-name">
-                    {tweet.author.firstname} {tweet.author.lastname}
-                  </small>
-                  <small className="all-tweets-box-username">
-                    {" "}
-                    @{tweet.author.username}
-                  </small>
-                  <small> {tweet.createdAt}</small>
-                  <p> {tweet.content}</p>
-                  <small>
-                    <i className="bi bi-heart-fill unliked"></i>
-                    <small className="ms-1 unliked">{tweet.likes.length}</small>
-                    <i className="bi bi-heart-fill liked"></i>
-                    <small className="ms-1 liked">{tweet.likes.length}</small>
-                  </small>
+          {tweets.map((tweet) => {
+            const timeDiffInMinutes = Math.round(
+              (Date.now() - new Date(tweet.createdAt).getTime()) / (1000 * 60)
+            );
+            return (
+              <div key={tweet.id} className="m-3">
+                <div className="row all-tweets-box">
+                  <div className="col-2 all-tweets-img-box">
+                    <img
+                      alt={tweet.author.username}
+                      src={tweet.author.image}
+                      className="img-profile-tweet"
+                    />
+                  </div>
+                  <div className="col-10 mb-3">
+                    <small className="all-tweets-box-name">
+                      {tweet.author.firstname} {tweet.author.lastname}
+                    </small>
+                    <small className="all-tweets-box-username">
+                      {" "}
+                      @{tweet.author.username}
+                    </small>
+                    <small>
+                      {" "}
+                      •{" "}
+                      {timeDiffInMinutes < 60 ? (
+                        <span>{timeDiffInMinutes}m</span>
+                      ) : (
+                        <>
+                          {(() => {
+                            const timeDiffInHours = Math.round(
+                              timeDiffInMinutes / 60
+                            );
+                            if (timeDiffInHours >= 1 && timeDiffInHours <= 24) {
+                              return <span>{timeDiffInHours}h</span>;
+                            } else {
+                              return (
+                                <span>
+                                  {new Date(tweet.createdAt).toLocaleString(
+                                    "default",
+                                    {
+                                      month: "short",
+                                      day: "numeric",
+                                    }
+                                  )}
+                                </span>
+                              );
+                            }
+                          })()}
+                        </>
+                      )}
+                    </small>
+                    <p> {tweet.content}</p>
+                    <small>
+                      <i className="bi bi-heart-fill unliked"></i>
+                      <small className="ms-1 unliked">
+                        {tweet.likes.length}
+                      </small>
+                      <i className="bi bi-heart-fill liked"></i>
+                      <small className="ms-1 liked">{tweet.likes.length}</small>
+                    </small>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
         <RightPartial />

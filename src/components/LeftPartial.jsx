@@ -11,10 +11,20 @@ function LeftPartial() {
         <div className="col-5"></div>
         <div className="col-6 d-flex flex-column icon-box">
           <div className="row mt-2 mb-1 responsive-md">
-            <i className="bi bi-twitter twitterSymbol fs-4"></i>
+            <Link
+              to={`/`}
+              className="text-decoration-none text-black responsive-md"
+            >
+              <i className="bi bi-twitter twitterSymbol fs-4"></i>
+            </Link>
           </div>
           <div className="row mt-2 mb-1 icon-responsive responsive-lg ">
-            <i className="bi bi-twitter twitterSymbol fs-4"></i>
+            <Link
+              to={`/`}
+              className="text-decoration-none text-black responsive-lg"
+            >
+              <i className="bi bi-twitter twitterSymbol fs-4"></i>
+            </Link>
           </div>
           <div className="row mt-4">
             <Link
@@ -48,7 +58,7 @@ function LeftPartial() {
 
           <div className="row mt-4">
             <Link
-              to={`profile/${loggedUser.id}`}
+              to={`/profile/${loggedUser.id}`}
               className="text-decoration-none text-black home-left-partial responsive-md "
             >
               <div className="d-flex align-items-baseline fw-bold fs-5">
@@ -60,7 +70,7 @@ function LeftPartial() {
             </Link>
 
             <Link
-              to={`profile/${loggedUser.id}`}
+              to={`/profile/${loggedUser.id}`}
               className="text-decoration-none text-black home-left-partial responsive-lg "
             >
               <div className="d-flex align-items-baseline fw-bold fs-5">

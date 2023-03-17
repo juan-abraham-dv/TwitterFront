@@ -18,9 +18,12 @@
 .send-tweet-box-title {
   font-size: 1.3rem;
 }
-.new-tweet-imput {
+.new-tweet-input {
   width: 100%;
   border: none;
+}
+.new-tweet-input:focus {
+  outline: none;
 }
 
 .all-tweets-box {
