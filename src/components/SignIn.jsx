@@ -21,7 +21,6 @@ export default function SignIn() {
     );
 
     //setLoggedUserData(response.data);
-    console.log(response.data);
     dispatch(storeUser(response.data));
     navigate("/");
   };

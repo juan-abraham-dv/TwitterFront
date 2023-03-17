@@ -3,6 +3,11 @@
   padding: 0;
 }
 
+.home-main-container {
+  margin: 0rem auto 0rem auto;
+  width: 90%;
+}
+
 .send-tweet-box {
   width: 100%;
   height: auto;
@@ -23,20 +28,19 @@
 }
 .all-tweets-img-box {
   text-align: center;
-  margin-right: 10px;
+}
+
+.content-tweet {
+  font-size: 0.95rem;
 }
 
 .img-profile {
   border-radius: 50%;
-  width: 80%;
+  width: 60%;
 }
 .img-profile-tweet {
   border-radius: 50%;
-  width: 45px;
-}
-
-.send-tweet-btn {
-  margin-left: auto;
+  width: 75%;
 }
 
 .liked {
@@ -49,10 +53,6 @@
 .all-tweets-box-name {
   font-weight: bold;
   font-size: 1.1rem;
-}
-
-.all-tweets-box-username {
-  font-size: 0.9rem;
 }
 
 .profile-link {

@@ -1,14 +1,16 @@
 import { useEffect, useState } from "react";
-// import LeftPartial from "./LeftPartial";
+import LeftPartial from "./LeftPartial";
 import RightPartial from "./RightPartial";
 import axios from "axios";
 import "./Home.css";
-import fakerprofile from "./img/fakeprofile.jpg";
 import { useSelector } from "react-redux";
+import noProfileiImage from "./img/fakeprofile.jpg";
 
 function Home() {
+  console.log(noProfileiImage);
   const [tweets, setTweets] = useState([]);
   const loggedUser = useSelector((state) => state.user);
+
   useEffect(() => {
     const getTweets = async () => {
       const response = await axios({
@@ -19,69 +21,109 @@ function Home() {
         },
       });
       setTweets(response.data);
-      console.log(response.data);
     };
     getTweets();
   }, []);
 
   return (
-    <div className="container">
+    <div className="home-main-container">
       <div className="row gx-5">
-        {/* <LeftPartial /> */}
+        <LeftPartial />
         <div className="col-5 p-0">
+          <div className="home-central-navbar">
+            <h1 className="title-tweet-box fw-bold">Home</h1>
+          </div>
           <div className="send-tweet-box p-3 ">
-            <h1 className="send-tweet-box-title">Home</h1>
             <div className="col-2 d-inline-block mt-2 mb-2">
               <img
-                alt="Cualquier cosa"
-                src={loggedUser.image}
+                alt="User profile image"
+                src={loggedUser.image ? loggedUser.image : `${noProfileiImage}`}
                 className="img-profile"
               />
             </div>
-            <div className="col-9 d-inline-block">
+            <div className="col-10 d-inline-block">
               <input
                 type="text"
                 placeholder="What's happening?"
-                className="new-tweet-imput"
+                className="new-tweet-imput fs-5"
               />
             </div>
-            <button className="d-block send-tweet-btn btn btn-home text-white rounded-pill w-22">
+            <button className="d-block ms-auto btn btn-home text-white rounded-pill px-3 fw-bold">
               Tweet
             </button>
           </div>
           <div>
-            {tweets.map((tweet) => (
-              <div key={tweet.id} className="m-3">
-                <div className="row all-tweets-box">
-                  <div className="col-1 all-tweets-img-box">
-                    <img
-                      alt="Cualquier cosa"
-                      src={tweet.author.image}
-                      className="img-profile-tweet"
-                    />
-                  </div>
-                  <div className="col-10 mb-3">
-                    <small className="all-tweets-box-name">
-                      {tweet.author.firstname} {tweet.author.lastname}
-                    </small>
-                    <small className="all-tweets-box-username">
-                      {" "}
-                      @{tweet.author.username}
-                    </small>
-                    <small> {tweet.createdAt}</small>
-                    <p> {tweet.content}</p>
-                    <small>
-                      <i className="bi bi-heart-fill unliked"></i>
-                      <small className="ms-1 unliked">
-                        {tweet.likes.length}
+            {tweets.map((tweet) => {
+              const timeDiffInMinutes = Math.round(
+                (Date.now() - new Date(tweet.createdAt).getTime()) / (1000 * 60)
+              );
+              return (
+                <div key={tweet._id} className="m-3">
+                  <div className="row all-tweets-box">
+                    <div className="col-2 all-tweets-img-box">
+                      <img
+                        alt="User profile image"
+                        src={tweet.author.image}
+                        className="img-profile-tweet"
+                      />
+                    </div>
+                    <div className="col-10 mb-3">
+                      <small className="fs-6 fw-bold">
+                        {tweet.author.firstname} {tweet.author.lastname}
                       </small>
-                      <i className="bi bi-heart-fill liked"></i>
-                      <small className="ms-1 liked">{tweet.likes.length}</small>
-                    </small>
+                      <small className=" text-secondary fw-light">
+                        {" "}
+                        @{tweet.author.username}
+                      </small>
+                      <small className="text-secondary fw-light">
+                        {" "}
+                        •{" "}
+                        {timeDiffInMinutes < 60 ? (
+                          <span>{timeDiffInMinutes}m</span>
+                        ) : (
+                          <>
+                            {(() => {
+                              const timeDiffInHours = Math.round(
+                                timeDiffInMinutes / 60
+                              );
+                              if (
+                                timeDiffInHours >= 1 &&
+                                timeDiffInHours <= 24
+                              ) {
+                                return <span>{timeDiffInHours}h</span>;
+                              } else {
+                                return (
+                                  <span>
+                                    {new Date(tweet.createdAt).toLocaleString(
+                                      "default",
+                                      {
+                                        month: "short",
+                                        day: "numeric",
+                                      }
+                                    )}
+                                  </span>
+                                );
+                              }
+                            })()}
+                          </>
+                        )}
+                      </small>
+                      <p className="content-tweet"> {tweet.content}</p>
+                      <small>
+                        <i className="bi bi-heart-fill unliked"></i>
+                        <small className="ms-1 unliked">
+                          {tweet.likes.length}
+                        </small>
+                        <i className="bi bi-heart-fill liked"></i>
+                        <small className="ms-1 liked">
+                          {tweet.likes.length}
+                        </small>
+                      </small>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
         <RightPartial />
