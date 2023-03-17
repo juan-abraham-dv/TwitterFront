@@ -28,10 +28,10 @@ export default function Profile() {
   }, []);
 
   return (
-    <div className="container-fluid">
-      <div className="row subContainer gx-5">
+    <div className="home-main-container">
+      <div className="row gx-5">
         <LeftPartial />
-        <div className="col-5 px-0">
+        <div className="col-5 p-0">
           <div className="d-flex flex-column profile-main-section">
             <div className="w-100 background-color-twitter profile-banner"></div>
             <div className="row w-100 profile-info px-3">
@@ -100,9 +100,9 @@ export default function Profile() {
           {tweets.map((tweet) => (
             <div key={tweet.id} className="m-3">
               <div className="row all-tweets-box">
-                <div className="col-1 all-tweets-img-box">
+                <div className="col-2 all-tweets-img-box">
                   <img
-                    alt="Cualquier cosa"
+                    alt={tweet.author.username}
                     src={tweet.author.image}
                     className="img-profile-tweet"
                   />

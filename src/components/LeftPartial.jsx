@@ -7,8 +7,9 @@ function LeftPartial() {
   const loggedUser = useSelector((state) => state.user);
   return (
     <div className="col-3 left-partial">
-      <div className="row w-75 mx-auto">
-        <div className="col-12 d-flex flex-column icon-box">
+      <div className="row">
+        <div className="col-5"></div>
+        <div className="col-6 d-flex flex-column icon-box">
           <div className="row mt-2 mb-1 responsive-md">
             <i className="bi bi-twitter twitterSymbol fs-4"></i>
           </div>
@@ -29,6 +30,20 @@ function LeftPartial() {
                 <span className="ms-3 navbar-label-size">Home</span>
               </div>
             </Link>
+            <Link
+              to={`/`}
+              className="text-decoration-none text-black responsive-lg"
+            >
+              <div className="d-flex align-items-baseline fw-bold">
+                <span className="navbar-label-size">
+                  <img
+                    src={`${homeIcon}`}
+                    alt="Home icon"
+                    className="navbar-icon-size my-auto"
+                  />
+                </span>
+              </div>
+            </Link>
           </div>
 
           <div className="row mt-4">
@@ -46,11 +61,11 @@ function LeftPartial() {
 
             <Link
               to={`profile/${loggedUser.id}`}
-              className="text-decoration-none text-black home-left-partial responsive-lg ms-3"
+              className="text-decoration-none text-black home-left-partial responsive-lg "
             >
               <div className="d-flex align-items-baseline fw-bold fs-5">
-                <span>
-                  <i className="bi bi-person me-3"></i>
+                <span className="navbar-label-size">
+                  <i className="bi bi-person"></i>
                 </span>
               </div>
             </Link>
@@ -65,7 +80,7 @@ function LeftPartial() {
                 Tweet
               </a>
             </div>
-            <div className="icon-responsive">
+            <div className="icon-responsive ">
               <a
                 className=" btn btn-secondary btn-home-md responsive-lg"
                 href="/"
@@ -96,7 +111,7 @@ function LeftPartial() {
             </div>
           </div>
         </div>
-        <div className="col-md-1"></div>
+        <div className="col-1"></div>
       </div>
     </div>
   );

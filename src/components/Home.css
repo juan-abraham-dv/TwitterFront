@@ -28,6 +28,7 @@
 }
 .all-tweets-img-box {
   text-align: center;
+  width: 100px;
 }
 
 .content-tweet {
@@ -62,4 +63,10 @@
 
 .icon-box {
   height: 100vh;
+  align-items: left;
+}
+@media (max-width: 991px) {
+  .icon-box {
+    align-items: center;
+  }
 }
