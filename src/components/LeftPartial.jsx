@@ -1,15 +1,14 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import homeIcon from "./img/twitter_home_icon.png";
+
 function LeftPartial() {
   const loggedUser = useSelector((state) => state.user);
-
-  console.log(loggedUser);
   return (
     <div className="col-3 left-partial">
-      <div className="row">
-        <div className="col-md-4 col-3"></div>
-        <div className="col-md-6 col-8 d-flex flex-column icon-box">
+      <div className="row w-75 mx-auto">
+        <div className="col-12 d-flex flex-column icon-box">
           <div className="row mt-2 mb-1 responsive-md">
             <i className="bi bi-twitter twitterSymbol fs-4"></i>
           </div>
@@ -19,44 +18,47 @@ function LeftPartial() {
           <div className="row mt-4">
             <Link
               to={`/`}
-              className="text-decoration-none text-black home-left-partial responsive-md "
+              className="text-decoration-none text-black responsive-md"
             >
-              <span>
-                <i className="bi bi-house-door me-3"></i>Home
-              </span>
-            </Link>
-            <Link
-              to={`/`}
-              className="text-decoration-none text-black home-left-partial responsive-lg ms-3"
-            >
-              <span>
-                <i className="bi bi-house-door me-3"></i>
-              </span>
+              <div className="d-flex align-items-baseline fw-bold">
+                <img
+                  src={`${homeIcon}`}
+                  alt="Home icon"
+                  className="navbar-icon-size my-auto"
+                />
+                <span className="ms-3 navbar-label-size">Home</span>
+              </div>
             </Link>
           </div>
+
           <div className="row mt-4">
             <Link
               to={`profile/${loggedUser.id}`}
               className="text-decoration-none text-black home-left-partial responsive-md "
             >
-              <span>
-                <i className="bi bi-person me-3"></i>Profile
-              </span>
+              <div className="d-flex align-items-baseline fw-bold fs-5">
+                <span>
+                  <i className="bi bi-person fs-3"></i>
+                </span>
+                <span className="ms-3 navbar-label-size">Profile</span>
+              </div>
             </Link>
 
             <Link
               to={`profile/${loggedUser.id}`}
               className="text-decoration-none text-black home-left-partial responsive-lg ms-3"
             >
-              <span>
-                <i className="bi bi-person me-3"></i>
-              </span>
+              <div className="d-flex align-items-baseline fw-bold fs-5">
+                <span>
+                  <i className="bi bi-person me-3"></i>
+                </span>
+              </div>
             </Link>
           </div>
           <div className="row mt-4">
             <div>
               <a
-                className="btn btn-home text-white rounded-pill w-100 responsive-md"
+                className="btn btn-home text-white rounded-pill w-100 responsive-md fw-bold"
                 href="/"
                 role="button"
               >

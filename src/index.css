@@ -67,10 +67,6 @@ body {
   font-size: 1.8rem !important;
 }
 
-.home-left-partial {
-  font-size: 1.1rem;
-}
-
 .profile-left-partial {
   font-size: 1.1rem;
 }
@@ -110,12 +106,14 @@ body {
 .left-partial {
   position: sticky;
   border-right: 0.5px solid #f3f3f3;
+  padding-right: 0.5rem;
   top: 0;
   height: 100vh;
 }
 .right-partial {
   position: sticky;
   border-left: 0.5px solid #f3f3f3;
+  padding-left: 2.1rem;
   top: 0;
   height: 100vh;
 }
@@ -129,13 +127,22 @@ body {
   position: sticky;
   top: 0;
   padding: 0.8rem 1rem 0.5rem 1rem;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
   width: 100%;
-  height: 8vh;
+  height: 10vh;
   background-color: #f7f9f9ae;
   border-bottom: 1px solid #f3f3f3;
-  -webkit-backdrop-filter: blur(3px);
-  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
+}
+
+.navbar-icon-size {
+  width: 1.8rem;
+}
+
+.navbar-label-size {
+  font-size: 1.25rem;
+  padding-top: 0.1rem;
 }
 
 .news-box {
@@ -146,18 +153,17 @@ body {
 }
 
 .news-box-p1 {
-  font-family: Arial, Helvetica, sans-serif;
   font-size: 13px;
+  font-weight: 300;
   color: #647788;
 }
 .news-box-p2 {
-  font-family: Arial, Helvetica, sans-serif;
   font-size: 16px;
   color: black;
 }
 .news-box-title {
   font-size: 20px;
-  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 800;
 }
 
 .follow-box {
@@ -167,22 +173,21 @@ body {
   width: 350px;
 }
 
-.follow-content {
-  font-size: 16px;
-}
-
 .follow-title {
   color: black;
+  font-size: 16px;
   font-weight: 500;
 }
 
 .follow-subtitle {
+  margin-top: 0.1rem;
   font-size: 0.9rem;
 }
 
 .btn-hardcode {
   width: 75px;
   height: 35px;
+  font-weight: 500;
   background-color: #1d9bf0;
   font-size: 0.85rem;
 }
