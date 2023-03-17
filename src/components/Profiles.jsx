@@ -1,4 +1,6 @@
 import React from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
 import LeftPartial from "./LeftPartial";
 import RightPartial from "./RightPartial";
 import { useSelector } from "react-redux";
@@ -8,8 +10,23 @@ export default function Profile() {
     (Date.now() - tweet.createdAt.getTime()) / (1000 * 60)
   );
   const timeDiffInHours = Math.round(timeDiffInMinutes / 60);*/
-  const loggedUser = useSelector((state) => state.user[0]);
-  console.log(loggedUser);
+  const [tweets, setTweets] = useState([]);
+  const loggedUser = useSelector((state) => state.user);
+  useEffect(() => {
+    const getTweets = async () => {
+      const response = await axios({
+        method: "GET",
+        url: `${process.env.REACT_APP_BACKEND_URL}/tweets/${loggedUser.id}`,
+        headers: {
+          Authorization: `Bearer ${loggedUser.token}`,
+        },
+      });
+      setTweets(response.data);
+      console.log(loggedUser.id);
+    };
+    getTweets();
+  }, []);
+
   return (
     <div className="container-fluid">
       <div className="row subContainer gx-5">
@@ -80,6 +97,36 @@ export default function Profile() {
               </div>
             </div>
           </div>
+          {tweets.map((tweet) => (
+            <div key={tweet.id} className="m-3">
+              <div className="row all-tweets-box">
+                <div className="col-1 all-tweets-img-box">
+                  <img
+                    alt="Cualquier cosa"
+                    src={tweet.author.image}
+                    className="img-profile-tweet"
+                  />
+                </div>
+                <div className="col-10 mb-3">
+                  <small className="all-tweets-box-name">
+                    {tweet.author.firstname} {tweet.author.lastname}
+                  </small>
+                  <small className="all-tweets-box-username">
+                    {" "}
+                    @{tweet.author.username}
+                  </small>
+                  <small> {tweet.createdAt}</small>
+                  <p> {tweet.content}</p>
+                  <small>
+                    <i className="bi bi-heart-fill unliked"></i>
+                    <small className="ms-1 unliked">{tweet.likes.length}</small>
+                    <i className="bi bi-heart-fill liked"></i>
+                    <small className="ms-1 liked">{tweet.likes.length}</small>
+                  </small>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
 
         <RightPartial />
