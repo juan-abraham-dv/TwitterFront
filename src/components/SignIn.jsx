@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
-import { storeUser } from "../Redux/userSlice";
+import { storeUser } from "../Redux/userReducer";
 import { useNavigate } from "react-router-dom";
 
 export default function SignIn() {

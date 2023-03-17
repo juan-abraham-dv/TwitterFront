@@ -7,7 +7,6 @@ import { useSelector } from "react-redux";
 import noProfileiImage from "./img/fakeprofile.jpg";
 
 function Home() {
-  console.log(noProfileiImage);
   const [tweets, setTweets] = useState([]);
   const [content, setContent] = useState("");
   const loggedUser = useSelector((state) => state.user);
@@ -17,13 +16,18 @@ function Home() {
 
     const formData = { content, loggedUser }; // Faltaría agregar el "author" del tweet
 
-    await axios.post(`${process.env.REACT_APP_BACKEND_URL}/tweets/`, formData);
+    const { data: newTweet } = await axios({
+      method: "POST",
+      url: `${process.env.REACT_APP_BACKEND_URL}/tweets`,
+      data: formData,
+      headers: {
+        Authorization: `Bearer ${loggedUser.token}`,
+      },
+    });
 
-    //setLoggedUserData(response.data);
-    // dispatch(storeUser(response.data));
-    // navigate("/");
+    setTweets((prev) => [newTweet, ...prev]);
+    newTweet.author = loggedUser;
   };
-
   useEffect(() => {
     const getTweets = async () => {
       const response = await axios({
@@ -49,7 +53,7 @@ function Home() {
           <div className="send-tweet-box p-3 ">
             <div className="col-2 d-inline-block mt-2 mb-2">
               <img
-                alt="User profile image"
+                alt={loggedUser.username}
                 src={loggedUser.image ? loggedUser.image : `${noProfileiImage}`}
                 className="img-profile"
               />
@@ -83,7 +87,7 @@ function Home() {
                   <div className="row all-tweets-box">
                     <div className="col-2 all-tweets-img-box">
                       <img
-                        alt="User profile image"
+                        alt="User profile"
                         src={tweet.author.image}
                         className="img-profile-tweet"
                       />

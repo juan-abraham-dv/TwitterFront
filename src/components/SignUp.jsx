@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
-import { storeUser } from "../Redux/userSlice";
+import { storeUser } from "../Redux/userReducer";
 
 export default function SignUp() {
   const dispatch = useDispatch();
