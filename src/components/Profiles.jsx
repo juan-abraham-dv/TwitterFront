@@ -1,17 +1,27 @@
 import React from "react";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import LeftPartial from "./LeftPartial";
 import RightPartial from "./RightPartial";
+<<<<<<< HEAD
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
+=======
+>>>>>>> dd961eb58f474078a29e04c05c83b03fe5988f22
 
 export default function Profile() {
   const [tweets, setTweets] = useState([]);
   const [user, setUser] = useState();
   const loggedUser = useSelector((state) => state.user);
   const params = useParams();
+<<<<<<< HEAD
+=======
+  const navigate = useNavigate();
+  console.log(0);
+>>>>>>> dd961eb58f474078a29e04c05c83b03fe5988f22
 
   useEffect(() => {
     const getUserData = async () => {
@@ -35,32 +45,37 @@ export default function Profile() {
           <LeftPartial />
           {user && tweets ? (
             <div className="col-5 p-0">
-              <div className="d-flex flex-column profile-main-section">
-                <div className="w-100 background-color-twitter profile-banner"></div>
-                <div className="row w-100 profile-info px-3">
-                  <div className="col-5 profile-info-subcontainer-left">
-                    <img
-                      src={user.image}
-                      className="profile-photo rounded-circle"
-                      alt=""
-                    />
-                    <div className="position-absolute bottom-0 pb-5">
-                      <h2 className="fs-4 mb-1">
-                        {user.firstname} {user.lastname}
-                      </h2>
-                      <h4 className="follow-subtitle fw-light text-secondary">
-                        @{user.username}
-                      </h4>
-                    </div>
-                    <div className="mt-3 position-absolute bottom-0 active-section-border-tweet">
-                      <span>Tweets</span>
-                    </div>
+              <div className="d-flex align-items-center profile-central-navbar px-3">
+                <div className="d-flex justify-content-center align-items-center h-100 me-4">
+                  <i
+                    className="bi bi-arrow-left fs-5 cursor-pointer"
+                    onClick={() => navigate(-1)}
+                  ></i>
+                </div>
+                <div className="d-flex flex-column justify-content-center align-items-start h-100 me-2">
+                  <div className="my-auto">
+                    <h1 className="title-tweet-box fw-bold mb-0">{`${user.firstname} ${user.lastname}`}</h1>{" "}
+                    <p className="text-secondary small-2-text mb-0">
+                      {tweets.length} Tweets
+                    </p>
                   </div>
-                  <div className="col-7 pt-3 profile-info-subcontainer-right">
-                    <div className="d-flex flex-column align-items-end h-100">
+                </div>
+              </div>
+              <div className="d-flex flex-column profile-main-section position-relative">
+                <div className="w-100 background-color-twitter profile-banner"></div>
+                <div className="d-flex flex-column w-100 px-3">
+                  <div className="d-flex justify-content-between mb-3">
+                    <div>
+                      <img
+                        src={user.image}
+                        className="profile-photo rounded-circle"
+                        alt=""
+                      />
+                    </div>
+                    <div className="mt-2">
                       {user.username === loggedUser.username ? (
                         <a
-                          className="btn following-btn-medium text-black rounded-pill"
+                          className="btn following-btn-medium text-black fw-semibold rounded-pill"
                           href="#"
                           role="button"
                         >
@@ -81,7 +96,18 @@ export default function Profile() {
                           Follow
                         </a>
                       )}
+                    </div>
+                  </div>
+                  <div className="mt-4">
+                    <h2 className="fs-4-5 mb-0 bolder-text">
+                      {user.firstname} {user.lastname}
+                    </h2>
+                    <h4 className="follow-subtitle fw-light text-secondary">
+                      @{user.username}
+                    </h4>
+                  </div>
 
+<<<<<<< HEAD
                       <div className="mt-auto pb-5">
                         <a className="text-black text-decoration-none me-3 small-text">
                           <span className="fw-bold me-2">
@@ -101,6 +127,28 @@ export default function Profile() {
                           <span className="text-secondary">Followers</span>
                         </a>
                       </div>
+=======
+                  {/* <div className="mt-3 position-absolute bottom-0 active-section-border-tweet">
+                    <span>Tweets</span>
+                  </div> */}
+                  <div className="mt-2">
+                    <p className="small-text">{user.biography}</p>
+                  </div>
+                  <div>
+                    <div className="mt-2 pb-5">
+                      <a className="text-black text-decoration-none me-3 small-text">
+                        <span className="bolder-text me-1">
+                          {user.following.length}
+                        </span>{" "}
+                        <span className="text-secondary">Following</span>
+                      </a>
+                      <a className="text-black text-decoration-none small-text">
+                        <span className="bolder-text me-1">
+                          {user.followers.length}
+                        </span>
+                        <span className="text-secondary">Followers</span>
+                      </a>
+>>>>>>> dd961eb58f474078a29e04c05c83b03fe5988f22
                     </div>
                   </div>
                 </div>
