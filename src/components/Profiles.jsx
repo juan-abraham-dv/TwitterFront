@@ -5,16 +5,15 @@ import LeftPartial from "./LeftPartial";
 import RightPartial from "./RightPartial";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function Profile() {
   const [tweets, setTweets] = useState([]);
   const [user, setUser] = useState();
   const loggedUser = useSelector((state) => state.user);
   const params = useParams();
-  console.log(0);
 
   useEffect(() => {
-    console.log(1);
     const getUserData = async () => {
       const response = await axios({
         method: "GET",
@@ -28,9 +27,6 @@ export default function Profile() {
     };
     getUserData();
   }, []);
-
-  console.log(tweets);
-  console.log(user);
 
   return (
     <>
@@ -91,7 +87,12 @@ export default function Profile() {
                           <span className="fw-bold me-2">
                             {user.following.length}
                           </span>{" "}
-                          <span className="text-secondary">Following</span>
+                          <Link
+                            to={`/${user.username}/followers`}
+                            className="text-decoration-none text-black"
+                          >
+                            <span className="text-secondary">Following</span>
+                          </Link>
                         </a>
                         <a className="text-black text-decoration-none small-text">
                           <span className="fw-bold me-2">

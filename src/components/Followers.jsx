@@ -1,46 +1,62 @@
 import React from "react";
+import LeftPartial from "./LeftPartial";
+import RightPartial from "./RightPartial";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import axios from "axios";
 
-export default function Followers() {
-  <div className="container-fluid">
-    <div className="row subContainer gx-5">
-      <div className="col-5 followlist-central-box">
-        <div className="row new-tweet-box">
-          <div className="col-1 mt-4">
-            <a
-              href={`/profile/${userFollowers.username}`}
-              className="text-black"
-            >
-              <i className="fa-sharp fa-solid fa-arrow-left"></i>
-            </a>
-          </div>
-          <div className="col-11 mt-2">
-            <h1 className="follower-name">
-              {userFollowers.firstname} {userFollowers.lastname}
-            </h1>
-            <h2 className="follower-username fw-light text-secondary">
-              @{userFollowers.username}
-            </h2>
-          </div>
-          <div className="col-6 mt-3 text-center mb-3 position-relative">
-            <a
-              className="link-follow"
-              href={`/profile/${userFollowers.username}/followers`}
-            >
-              Followers
-            </a>
-            <span className="active-section-border-follow"></span>
-          </div>
-          <div className="col-6 mt-3 text-center mb-3">
-            <a
-              className="link-follow"
-              href={`/profile/${userFollowers.username}/following`}
-            >
-              Following
-            </a>
-          </div>
-        </div>
+function Followers() {
+  const [user, setUser] = useState();
+  const loggedUser = useSelector((state) => state.user);
+  const params = useParams();
+  useEffect(() => {
+    const getUserData = async () => {
+      const response = await axios({
+        method: "GET",
+        url: `${process.env.REACT_APP_BACKEND_URL}/users/${params.username}/followers`,
+        headers: {
+          Authorization: `Bearer ${loggedUser.token}`,
+        },
+      });
 
-        {userFollowers.followers.map((follower) => {
+      setUser(response.data.user);
+    };
+    getUserData();
+  }, []);
+  console.log("papas", user);
+  return (
+    <div className="container">
+      <div className="row  gx-5">
+        <LeftPartial />
+        <div className="col-5 followlist-central-box">
+          <div className="row new-tweet-box">
+            <div className="col-1 mt-4">
+              <a href={`/profile/`} className="text-black">
+                <i className="fa-sharp fa-solid fa-arrow-left"></i>
+              </a>
+            </div>
+            <div className="col-11 mt-2">
+              <h1 className="follower-name">
+                {/* {user.firstname} {user.lastname} */}
+              </h1>
+              <h2 className="follower-username fw-light text-secondary">
+                {/* {user.username} */}
+              </h2>
+            </div>
+            <div className="col-6 mt-3 text-center mb-3 position-relative">
+              <a className="link-follow" href={`/profile/followers`}>
+                Followers
+              </a>
+              <span className="active-section-border-follow"></span>
+            </div>
+            <div className="col-6 mt-3 text-center mb-3">
+              <a className="link-follow" href={`/profile/following`}>
+                Following
+              </a>
+            </div>
+          </div>
+          {/* {userFollowers.followers.map((follower) => {
           <div className="row tweet-list mt-3">
             <div className="col-2 text-center">
               <a href={`/profile/${follower.username}`}>
@@ -82,8 +98,12 @@ export default function Followers() {
               )}
             </div>
           </div>;
-        })}
+        })} */}
+        </div>
+        <RightPartial />
       </div>
     </div>
-  </div>;
+  );
 }
+
+export default Followers;

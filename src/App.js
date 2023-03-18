@@ -5,6 +5,7 @@ import Home from "./components/Home";
 import SignUp from "./components/SignUp";
 import SignIn from "./components/SignIn";
 import Profiles from "./components/Profiles";
+import Followers from "./components/Followers";
 import { PersistGate } from "redux-persist/integration/react";
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
             <Route path="signup" element={<SignUp />} />
             <Route path="login" element={<SignIn />} />
             <Route path="profile/:id" element={<Profiles />} />
+            <Route path=":username/followers" element={<Followers />} />
           </Routes>
         </div>
       </PersistGate>
