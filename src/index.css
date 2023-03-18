@@ -106,7 +106,7 @@ body {
 .left-partial {
   position: sticky;
   border-right: 0.5px solid #f3f3f3;
-  padding-right: 0.5rem;
+  padding-right: 1rem;
   top: 0;
   height: 100vh;
 }

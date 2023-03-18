@@ -30,6 +30,7 @@ function Home() {
     newTweet.author = loggedUser;
     setContent("");
   };
+
   useEffect(() => {
     const getTweets = async () => {
       const response = await axios({
@@ -88,7 +89,6 @@ function Home() {
               </div>
             </form>
           </div>
-
           <div>
             {tweets.map((tweet) => {
               const timeDiffInMinutes = Math.round(
@@ -97,7 +97,7 @@ function Home() {
               return (
                 <div key={tweet._id} className="m-3">
                   <div className="row all-tweets-box">
-                    <div className="col-2 all-tweets-img-box">
+                    <div className="col-2 text-center">
                       <Link
                         to={`/profile/${tweet.author._id}`}
                         className="text-decoration-none text-black"
