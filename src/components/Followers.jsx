@@ -46,22 +46,17 @@ function Followers() {
                   @{user.username}
                 </h2>
               </div>
+
+              <div className="col-6 mt-3 text-center mb-3">
+                <Link className="link-follow" to={`/${user._id}/followings`}>
+                  Following
+                </Link>
+              </div>
               <div className="col-6 mt-3 text-center mb-3 position-relative">
-                <Link
-                  className="link-follow"
-                  to={`/profile/${user._id}/followers`}
-                >
+                <Link className="link-follow" to={`/${user._id}/followers`}>
                   Followers
                 </Link>
                 <span className="active-section-border-follow"></span>
-              </div>
-              <div className="col-6 mt-3 text-center mb-3">
-                <Link
-                  className="link-follow"
-                  to={`/profile/${user._id}/following`}
-                >
-                  Following
-                </Link>
               </div>
             </div>
             {user.followers.map((follower) => {

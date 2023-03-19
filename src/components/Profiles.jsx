@@ -12,6 +12,7 @@ export default function Profile() {
   const loggedUser = useSelector((state) => state.user);
   const params = useParams();
   const navigate = useNavigate();
+  console.log(0);
 
   useEffect(() => {
     const getUserData = async () => {
@@ -92,17 +93,21 @@ export default function Profile() {
                     <h2 className="fs-4-5 mb-0 bolder-text">
                       {user.firstname} {user.lastname}
                     </h2>
-                    <h4 className="follow-subtitle fw-light text-secondary">
+                    <h4 className="follow-subtitle fw-light text-secondary mt-1">
                       @{user.username}
                     </h4>
                   </div>
+
+                  {/* <div className="mt-3 position-absolute bottom-0 active-section-border-tweet">
+                    <span>Tweets</span>
+                  </div> */}
                   <div className="mt-2">
                     <p className="small-text">{user.biography}</p>
                   </div>
                   <div>
                     <div className="mt-2 pb-5">
                       <Link
-                        to={`/${user._id}/followers`}
+                        to={`/${user._id}/followings`}
                         className="text-black text-decoration-none me-3 small-text"
                       >
                         <span className="bolder-text me-1">
@@ -111,10 +116,15 @@ export default function Profile() {
                         <span className="text-secondary">Following</span>
                       </Link>
                       <a className="text-black text-decoration-none small-text">
-                        <span className="bolder-text me-1">
-                          {user.followers.length}
-                        </span>
-                        <span className="text-secondary">Followers</span>
+                        <Link
+                          to={`/${user._id}/followers`}
+                          className="text-black text-decoration-none me-3 small-text"
+                        >
+                          <span className="bolder-text me-1">
+                            {user.followers.length}
+                          </span>
+                          <span className="text-secondary">Followers</span>
+                        </Link>
                       </a>
                     </div>
                   </div>
