@@ -7,9 +7,8 @@ function LeftPartial() {
   const loggedUser = useSelector((state) => state.user);
   return (
     <div className="col-3 left-partial">
-      <div className="row">
-        <div className="col-5"></div>
-        <div className="col-6 d-flex flex-column icon-box">
+      <div className="row d-flex justify-content-end">
+        <div className="col-8 d-flex flex-column icon-box">
           <div className="row mt-2 mb-1 responsive-md">
             <Link
               to={`/`}

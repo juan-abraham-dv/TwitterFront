@@ -18,7 +18,7 @@ function App() {
             <Route path="signup" element={<SignUp />} />
             <Route path="login" element={<SignIn />} />
             <Route path="profile/:id" element={<Profiles />} />
-            <Route path=":username/followers" element={<Followers />} />
+            <Route path=":id/followers" element={<Followers />} />
           </Routes>
         </div>
       </PersistGate>

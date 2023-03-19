@@ -1,27 +1,17 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import LeftPartial from "./LeftPartial";
 import RightPartial from "./RightPartial";
-<<<<<<< HEAD
-import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
-import { Link } from "react-router-dom";
-=======
->>>>>>> dd961eb58f474078a29e04c05c83b03fe5988f22
 
 export default function Profile() {
   const [tweets, setTweets] = useState([]);
   const [user, setUser] = useState();
   const loggedUser = useSelector((state) => state.user);
   const params = useParams();
-<<<<<<< HEAD
-=======
   const navigate = useNavigate();
-  console.log(0);
->>>>>>> dd961eb58f474078a29e04c05c83b03fe5988f22
 
   useEffect(() => {
     const getUserData = async () => {
@@ -79,7 +69,7 @@ export default function Profile() {
                           href="#"
                           role="button"
                         >
-                          Edit
+                          Edit profile
                         </a>
                       ) : user.followers.includes(loggedUser._id) ? (
                         <a
@@ -106,49 +96,26 @@ export default function Profile() {
                       @{user.username}
                     </h4>
                   </div>
-
-<<<<<<< HEAD
-                      <div className="mt-auto pb-5">
-                        <a className="text-black text-decoration-none me-3 small-text">
-                          <span className="fw-bold me-2">
-                            {user.following.length}
-                          </span>{" "}
-                          <Link
-                            to={`/${user.username}/followers`}
-                            className="text-decoration-none text-black"
-                          >
-                            <span className="text-secondary">Following</span>
-                          </Link>
-                        </a>
-                        <a className="text-black text-decoration-none small-text">
-                          <span className="fw-bold me-2">
-                            {user.followers.length}
-                          </span>
-                          <span className="text-secondary">Followers</span>
-                        </a>
-                      </div>
-=======
-                  {/* <div className="mt-3 position-absolute bottom-0 active-section-border-tweet">
-                    <span>Tweets</span>
-                  </div> */}
                   <div className="mt-2">
                     <p className="small-text">{user.biography}</p>
                   </div>
                   <div>
                     <div className="mt-2 pb-5">
-                      <a className="text-black text-decoration-none me-3 small-text">
+                      <Link
+                        to={`/${user._id}/followers`}
+                        className="text-black text-decoration-none me-3 small-text"
+                      >
                         <span className="bolder-text me-1">
                           {user.following.length}
                         </span>{" "}
                         <span className="text-secondary">Following</span>
-                      </a>
+                      </Link>
                       <a className="text-black text-decoration-none small-text">
                         <span className="bolder-text me-1">
                           {user.followers.length}
                         </span>
                         <span className="text-secondary">Followers</span>
                       </a>
->>>>>>> dd961eb58f474078a29e04c05c83b03fe5988f22
                     </div>
                   </div>
                 </div>
@@ -159,7 +126,7 @@ export default function Profile() {
                     (1000 * 60)
                 );
                 return (
-                  <div key={tweet.id} className="m-3">
+                  <div key={tweet._id} className="m-3">
                     <div className="row">
                       <div className="col-2">
                         <img
