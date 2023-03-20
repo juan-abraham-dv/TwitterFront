@@ -62,6 +62,20 @@ export default function Profile() {
     dispatch(addFollowing({ followingList }));
   };
 
+  const handleRemoveTweet = async (tweetId) => {
+    await axios({
+      method: "DELETE",
+      url: `${process.env.REACT_APP_BACKEND_URL}/tweets/${tweetId}`,
+      headers: {
+        Authorization: `Bearer ${loggedUser.token}`,
+      },
+    });
+    const updatedTweets = tweets.filter((tweet) => {
+      return tweet._id !== tweetId;
+    });
+    setTweets(updatedTweets);
+  };
+
   return (
     <>
       <div className="home-main-container">
@@ -91,7 +105,11 @@ export default function Profile() {
                   <div className="d-flex justify-content-between mb-3">
                     <div>
                       <img
-                        src={user.image}
+                        src={
+                          user.image.includes("http")
+                            ? user.image
+                            : `${process.env.REACT_APP_BACKEND_URL}/img/${user.image}`
+                        }
                         className="profile-photo rounded-circle"
                         alt=""
                       />
@@ -178,7 +196,11 @@ export default function Profile() {
                       <div className="col-2">
                         <img
                           alt={user.username}
-                          src={user.image}
+                          src={
+                            user.image.includes("http")
+                              ? user.image
+                              : `${process.env.REACT_APP_BACKEND_URL}/img/${user.image}`
+                          }
                           className="img-profile-tweet"
                         />
                       </div>
@@ -224,29 +246,39 @@ export default function Profile() {
                           )}
                         </small>
                         <p> {tweet.content}</p>
-                        <small className="text-secondary">
-                          {tweet.likes.includes(loggedUser.id) ? (
+                        <div className="text-secondary d-flex justify-content-between">
+                          <div>
+                            {tweet.likes.includes(loggedUser.id) ? (
+                              <div
+                                onClick={() => handleLikeTweet(tweet._id)}
+                                className="cursor-pointer"
+                              >
+                                <i className="bi bi-heart-fill liked"></i>
+                                <small className="ms-2 liked">
+                                  {tweet.likes.length}
+                                </small>
+                              </div>
+                            ) : (
+                              <div
+                                onClick={() => handleLikeTweet(tweet._id)}
+                                className="cursor-pointer"
+                              >
+                                <i className="bi bi-heart disliked"></i>
+                                <small className="ms-2 disliked">
+                                  {tweet.likes.length}
+                                </small>
+                              </div>
+                            )}
+                          </div>
+                          {loggedUser.id === user._id && (
                             <div
-                              onClick={() => handleLikeTweet(tweet._id)}
                               className="cursor-pointer"
+                              onClick={() => handleRemoveTweet(tweet._id)}
                             >
-                              <i className="bi bi-heart-fill liked"></i>
-                              <small className="ms-2 liked">
-                                {tweet.likes.length}
-                              </small>
-                            </div>
-                          ) : (
-                            <div
-                              onClick={() => handleLikeTweet(tweet._id)}
-                              className="cursor-pointer"
-                            >
-                              <i className="bi bi-heart disliked"></i>
-                              <small className="ms-2 disliked">
-                                {tweet.likes.length}
-                              </small>
+                              <i className="bi bi-trash-fill"></i>
                             </div>
                           )}
-                        </small>
+                        </div>
                       </div>
                     </div>
                   </div>

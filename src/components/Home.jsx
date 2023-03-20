@@ -81,7 +81,9 @@ function Home() {
                   <img
                     alt={loggedUser.username}
                     src={
-                      loggedUser.image ? loggedUser.image : `${noProfileiImage}`
+                      loggedUser.image.includes("http")
+                        ? loggedUser.image
+                        : `${process.env.REACT_APP_BACKEND_URL}/img/${loggedUser.image}`
                     }
                     className="img-profile"
                   />
@@ -122,7 +124,11 @@ function Home() {
                       >
                         <img
                           alt="User profile"
-                          src={tweet.author.image}
+                          src={
+                            tweet.author.image.includes("http")
+                              ? tweet.author.image
+                              : `${process.env.REACT_APP_BACKEND_URL}/img/${tweet.author.image}`
+                          }
                           className="img-profile-tweet"
                         />
                       </Link>

@@ -76,7 +76,7 @@ function RightPartial() {
 
             {users.map((user) => {
               return (
-                <div className="row mt-2">
+                <div key={user._id} className="row mt-2">
                   <div className="col-2">
                     <Link to={`/profile/${user._id}`}>
                       <img
