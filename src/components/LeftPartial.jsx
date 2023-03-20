@@ -2,6 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import homeIcon from "./img/twitter_home_icon.png";
+import tweetIcon from "./img/btn-image.png";
 
 function LeftPartial() {
   const loggedUser = useSelector((state) => state.user);
@@ -90,17 +91,17 @@ function LeftPartial() {
               </Link>
             </div>
             <div className="icon-responsive ">
-              <Link
-                className=" btn btn-secondary btn-home-md responsive-lg"
-                to={"/"}
-                role="button"
-              >
-                <i className="fa-sharp fa-solid fa-feather-pointed"></i>
+              <Link className=" responsive-lg" to={"/"} role="button">
+                <img
+                  src={`${tweetIcon}`}
+                  alt="Tweet icon"
+                  className="btn-home-md"
+                />
               </Link>
             </div>
           </div>
           <div className="row mt-auto mb-4">
-            <div className="col-12 mb-4">
+            <div className="mb-4">
               <Link
                 className="btn btn-secondary btn-logout mt-auto rounded-pill w-100 responsive-md"
                 to={"/logout"}
@@ -109,13 +110,9 @@ function LeftPartial() {
                 Logout
               </Link>
             </div>
-            <div className="col-12 mb-4 icon-responsive">
-              <Link
-                className="btn btn-secondary btn-logout-md mt-auto responsive-lg"
-                to={"/logout"}
-                role="button"
-              >
-                <i className="fa-solid fa-right-from-bracket"></i>
+            <div className="icon-responsive btn-logout-md mt-auto responsive-lg">
+              <Link to={"/logout"} role="button">
+                <i class="bi bi-box-arrow-left fs-4 text-white"></i>
               </Link>
             </div>
           </div>
