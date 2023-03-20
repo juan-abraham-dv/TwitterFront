@@ -6,7 +6,8 @@ import SignUp from "./components/SignUp";
 import SignIn from "./components/SignIn";
 import Profiles from "./components/Profiles";
 import Followers from "./components/Followers";
-import Followings from "./components/Following";
+import Following from "./components/Following";
+import Logout from "./components/Logout";
 import { PersistGate } from "redux-persist/integration/react";
 
 function App() {
@@ -20,7 +21,8 @@ function App() {
             <Route path="login" element={<SignIn />} />
             <Route path="profile/:id" element={<Profiles />} />
             <Route path=":id/followers" element={<Followers />} />
-            <Route path=":id/followings" element={<Followings />} />
+            <Route path=":id/following" element={<Following />} />
+            <Route path="/logout" element={<Logout />} />
           </Routes>
         </div>
       </PersistGate>

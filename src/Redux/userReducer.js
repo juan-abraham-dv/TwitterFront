@@ -6,13 +6,26 @@ const userSlice = createSlice({
 
   reducers: {
     storeUser(state, action) {
-      //const loggedUserData = action.payload;
       console.log(current(state));
       console.log(action.payload);
       return { ...action.payload };
     },
+
+    addFollowing(state, action) {
+      const { followingList } = action.payload;
+      const newState = {
+        ...state,
+        following: followingList,
+      };
+
+      return newState;
+    },
+
+    logout(state, action) {
+      return {};
+    },
   },
 });
 
-export const { storeUser } = userSlice.actions;
+export const { storeUser, addFollowing, logout } = userSlice.actions;
 export default userSlice.reducer;

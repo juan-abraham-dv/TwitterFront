@@ -81,42 +81,42 @@ function LeftPartial() {
           </div>
           <div className="row mt-4">
             <div>
-              <a
+              <Link
                 className="btn btn-home text-white rounded-pill w-100 responsive-md fw-bold"
-                href="/"
+                to={"/"}
                 role="button"
               >
                 Tweet
-              </a>
+              </Link>
             </div>
             <div className="icon-responsive ">
-              <a
+              <Link
                 className=" btn btn-secondary btn-home-md responsive-lg"
-                href="/"
+                to={"/"}
                 role="button"
               >
                 <i className="fa-sharp fa-solid fa-feather-pointed"></i>
-              </a>
+              </Link>
             </div>
           </div>
           <div className="row mt-auto mb-4">
             <div className="col-12 mb-4">
-              <a
+              <Link
                 className="btn btn-secondary btn-logout mt-auto rounded-pill w-100 responsive-md"
-                href="/logout"
+                to={"/logout"}
                 role="button"
               >
                 Logout
-              </a>
+              </Link>
             </div>
             <div className="col-12 mb-4 icon-responsive">
-              <a
+              <Link
                 className="btn btn-secondary btn-logout-md mt-auto responsive-lg"
-                href="/logout"
+                to={"/logout"}
                 role="button"
               >
                 <i className="fa-solid fa-right-from-bracket"></i>
-              </a>
+              </Link>
             </div>
           </div>
         </div>

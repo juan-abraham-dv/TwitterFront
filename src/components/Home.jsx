@@ -12,6 +12,20 @@ function Home() {
   const [content, setContent] = useState("");
   const loggedUser = useSelector((state) => state.user);
 
+  useEffect(() => {
+    const getTweets = async () => {
+      const response = await axios({
+        method: "GET",
+        url: `${process.env.REACT_APP_BACKEND_URL}/tweets`,
+        headers: {
+          Authorization: `Bearer ${loggedUser.token}`,
+        },
+      });
+      setTweets(response.data);
+    };
+    getTweets();
+  }, []);
+
   const handleCreateTweet = async (event) => {
     event.preventDefault();
 
@@ -31,19 +45,23 @@ function Home() {
     setContent("");
   };
 
-  useEffect(() => {
-    const getTweets = async () => {
-      const response = await axios({
-        method: "GET",
-        url: `${process.env.REACT_APP_BACKEND_URL}/tweets`,
-        headers: {
-          Authorization: `Bearer ${loggedUser.token}`,
-        },
-      });
-      setTweets(response.data);
-    };
-    getTweets();
-  }, []);
+  const handleLikeTweet = async (tweetId) => {
+    const { data: updatedLikesList } = await axios({
+      method: "PATCH",
+      url: `${process.env.REACT_APP_BACKEND_URL}/tweets/${tweetId}/like`,
+      headers: {
+        Authorization: `Bearer ${loggedUser.token}`,
+      },
+    });
+
+    const updatedTweets = tweets.map((tweet) => {
+      if (tweet._id === tweetId) {
+        return { ...tweet, likes: updatedLikesList };
+      }
+      return tweet;
+    });
+    return setTweets(updatedTweets);
+  };
 
   return (
     <div className="home-main-container">
@@ -156,15 +174,28 @@ function Home() {
                         )}
                       </small>
                       <p className="content-tweet"> {tweet.content}</p>
-                      <small>
-                        <i className="bi bi-heart-fill unliked"></i>
-                        <small className="ms-1 unliked">
-                          {tweet.likes.length}
-                        </small>
-                        <i className="bi bi-heart-fill liked"></i>
-                        <small className="ms-1 liked">
-                          {tweet.likes.length}
-                        </small>
+                      <small className="text-secondary">
+                        {tweet.likes.includes(loggedUser.id) ? (
+                          <div
+                            onClick={() => handleLikeTweet(tweet._id)}
+                            className="cursor-pointer"
+                          >
+                            <i className="bi bi-heart-fill liked"></i>
+                            <small className="ms-2 liked">
+                              {tweet.likes.length}
+                            </small>
+                          </div>
+                        ) : (
+                          <div
+                            onClick={() => handleLikeTweet(tweet._id)}
+                            className="cursor-pointer"
+                          >
+                            <i className="bi bi-heart disliked"></i>
+                            <small className="ms-2 disliked">
+                              {tweet.likes.length}
+                            </small>
+                          </div>
+                        )}
                       </small>
                     </div>
                   </div>

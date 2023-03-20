@@ -47,10 +47,10 @@
 
 .liked {
   color: rgb(253, 41, 179);
-  font-size: 1rem;
+  font-size: 0.95rem;
 }
-.unliked {
-  font-size: 1rem;
+.disliked {
+  font-size: 0.95rem;
 }
 .all-tweets-box-name {
   font-weight: bold;

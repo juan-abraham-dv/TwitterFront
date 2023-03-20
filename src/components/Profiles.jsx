@@ -1,18 +1,19 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import LeftPartial from "./LeftPartial";
 import RightPartial from "./RightPartial";
+import { addFollowing } from "../Redux/userReducer";
 
 export default function Profile() {
   const [tweets, setTweets] = useState([]);
   const [user, setUser] = useState();
   const loggedUser = useSelector((state) => state.user);
   const params = useParams();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  console.log(0);
 
   useEffect(() => {
     const getUserData = async () => {
@@ -28,6 +29,38 @@ export default function Profile() {
     };
     getUserData();
   }, []);
+
+  const handleLikeTweet = async (tweetId) => {
+    const { data: updatedLikesList } = await axios({
+      method: "PATCH",
+      url: `${process.env.REACT_APP_BACKEND_URL}/tweets/${tweetId}/like`,
+      headers: {
+        Authorization: `Bearer ${loggedUser.token}`,
+      },
+    });
+
+    const updatedTweets = tweets.map((tweet) => {
+      if (tweet._id === tweetId) {
+        return { ...tweet, likes: updatedLikesList };
+      }
+      return tweet;
+    });
+    return setTweets(updatedTweets);
+  };
+
+  const handleFollowUser = async (userId) => {
+    const { data: updatedFollowData } = await axios({
+      method: "PATCH",
+      url: `${process.env.REACT_APP_BACKEND_URL}/users/${userId}/follow`,
+      headers: {
+        Authorization: `Bearer ${loggedUser.token}`,
+      },
+    });
+
+    const followingList = updatedFollowData.followingList;
+
+    dispatch(addFollowing({ followingList }));
+  };
 
   return (
     <>
@@ -65,27 +98,33 @@ export default function Profile() {
                     </div>
                     <div className="mt-2">
                       {user.username === loggedUser.username ? (
-                        <a
+                        <Link
                           className="btn following-btn-medium text-black fw-semibold rounded-pill"
-                          href="#"
+                          to={"#"}
                           role="button"
                         >
                           Edit profile
-                        </a>
-                      ) : user.followers.includes(loggedUser._id) ? (
-                        <a
+                        </Link>
+                      ) : loggedUser.following.includes(user._id) ? (
+                        <div
                           className="btn following-btn-medium text-black rounded-pill"
                           role="button"
+                          onClick={() => {
+                            handleFollowUser(user._id);
+                          }}
                         >
                           Following
-                        </a>
+                        </div>
                       ) : (
-                        <a
+                        <div
                           className="btn follow-btn-medium text-white rounded-pill"
+                          onClick={() => {
+                            handleFollowUser(user._id);
+                          }}
                           role="button"
                         >
                           Follow
-                        </a>
+                        </div>
                       )}
                     </div>
                   </div>
@@ -107,7 +146,7 @@ export default function Profile() {
                   <div>
                     <div className="mt-2 pb-5">
                       <Link
-                        to={`/${user._id}/followings`}
+                        to={`/${user._id}/following`}
                         className="text-black text-decoration-none me-3 small-text"
                       >
                         <span className="bolder-text me-1">
@@ -115,17 +154,15 @@ export default function Profile() {
                         </span>{" "}
                         <span className="text-secondary">Following</span>
                       </Link>
-                      <a className="text-black text-decoration-none small-text">
-                        <Link
-                          to={`/${user._id}/followers`}
-                          className="text-black text-decoration-none me-3 small-text"
-                        >
-                          <span className="bolder-text me-1">
-                            {user.followers.length}
-                          </span>
-                          <span className="text-secondary">Followers</span>
-                        </Link>
-                      </a>
+                      <Link
+                        to={`/${user._id}/followers`}
+                        className="text-black text-decoration-none me-3 small-text"
+                      >
+                        <span className="bolder-text me-1">
+                          {user.followers.length}
+                        </span>
+                        <span className="text-secondary">Followers</span>
+                      </Link>
                     </div>
                   </div>
                 </div>
@@ -187,15 +224,28 @@ export default function Profile() {
                           )}
                         </small>
                         <p> {tweet.content}</p>
-                        <small>
-                          <i className="bi bi-heart-fill unliked"></i>
-                          <small className="ms-1 unliked">
-                            {tweet.likes.length}
-                          </small>
-                          <i className="bi bi-heart-fill liked"></i>
-                          <small className="ms-1 liked">
-                            {tweet.likes.length}
-                          </small>
+                        <small className="text-secondary">
+                          {tweet.likes.includes(loggedUser.id) ? (
+                            <div
+                              onClick={() => handleLikeTweet(tweet._id)}
+                              className="cursor-pointer"
+                            >
+                              <i className="bi bi-heart-fill liked"></i>
+                              <small className="ms-2 liked">
+                                {tweet.likes.length}
+                              </small>
+                            </div>
+                          ) : (
+                            <div
+                              onClick={() => handleLikeTweet(tweet._id)}
+                              className="cursor-pointer"
+                            >
+                              <i className="bi bi-heart disliked"></i>
+                              <small className="ms-2 disliked">
+                                {tweet.likes.length}
+                              </small>
+                            </div>
+                          )}
                         </small>
                       </div>
                     </div>

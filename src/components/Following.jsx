@@ -2,13 +2,15 @@ import React from "react";
 import LeftPartial from "./LeftPartial";
 import RightPartial from "./RightPartial";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import axios from "axios";
+import { addFollowing } from "../Redux/userReducer";
 
 function Followings() {
   const [user, setUser] = useState();
   const loggedUser = useSelector((state) => state.user);
+  const dispatch = useDispatch();
   const params = useParams();
   const navigate = useNavigate();
 
@@ -16,7 +18,7 @@ function Followings() {
     const getUserData = async () => {
       const response = await axios({
         method: "GET",
-        url: `${process.env.REACT_APP_BACKEND_URL}/users/${params.id}/followings`,
+        url: `${process.env.REACT_APP_BACKEND_URL}/users/${params.id}/following`,
         headers: {
           Authorization: `Bearer ${loggedUser.token}`,
         },
@@ -25,6 +27,21 @@ function Followings() {
     };
     getUserData();
   }, []);
+
+  const handleFollowUser = async (followerId) => {
+    const { data: updatedFollowData } = await axios({
+      method: "PATCH",
+      url: `${process.env.REACT_APP_BACKEND_URL}/users/${followerId}/follow`,
+      headers: {
+        Authorization: `Bearer ${loggedUser.token}`,
+      },
+    });
+
+    const followingList = updatedFollowData.followingList;
+
+    dispatch(addFollowing({ followingList }));
+  };
+
   return (
     <div className="container">
       <div className="row gx-5">
@@ -48,7 +65,7 @@ function Followings() {
               </div>
 
               <div className="col-6 mt-3 text-center mb-3 position-relative">
-                <Link className="link-follow" to={`/${user._id}/followings`}>
+                <Link className="link-follow" to={`/${user._id}/following`}>
                   Following
                 </Link>
                 <span className="active-section-border-follow"></span>
@@ -61,7 +78,7 @@ function Followings() {
             </div>
             {user.following.map((follower) => {
               return (
-                <div className="row tweet-list mt-3">
+                <div key={follower._id} className="row tweet-list mt-3">
                   <div className="col-2 text-center">
                     <Link
                       className="link-follow"
@@ -88,20 +105,20 @@ function Followings() {
                     </Link>
                   </div>
                   <div className="col-2">
-                    {user.following.includes(follower._id) ? (
-                      <a
-                        href={`/${follower._id}/follow`}
+                    {loggedUser.following.includes(follower._id) ? (
+                      <button
+                        onClick={() => handleFollowUser(follower._id)}
                         className="text-decoration-none text-black btn following-btn-medium text-black rounded-pill mt-2 ms-3"
                       >
                         Following
-                      </a>
+                      </button>
                     ) : (
-                      <a
-                        href={`/${follower._id}/follow`}
+                      <button
+                        onClick={() => handleFollowUser(follower._id)}
                         className="text-decoration-none text-black btn follow-btn-medium text-white rounded-pill mt-2 ms-3"
                       >
                         Follow
-                      </a>
+                      </button>
                     )}
                   </div>
                 </div>
