@@ -186,9 +186,8 @@ export default function Profile() {
                 </div>
               </div>
               {tweets.map((tweet) => {
-                const timeDiffInMinutes = Math.round(
-                  (Date.now() - new Date(tweet.createdAt).getTime()) /
-                    (1000 * 60)
+                const timeDiffInSeconds = Math.round(
+                  (Date.now() - new Date(tweet.createdAt).getTime()) / 1000
                 );
                 return (
                   <div key={tweet._id} className="m-3">
@@ -215,31 +214,37 @@ export default function Profile() {
                         <small className="text-secondary">
                           {" "}
                           •{" "}
-                          {timeDiffInMinutes < 60 ? (
-                            <span>{timeDiffInMinutes}m</span>
+                          {timeDiffInSeconds < 60 ? (
+                            <span>{timeDiffInSeconds}s</span>
                           ) : (
                             <>
                               {(() => {
-                                const timeDiffInHours = Math.round(
-                                  timeDiffInMinutes / 60
+                                const timeDiffInMinutes = Math.round(
+                                  timeDiffInSeconds / 60
                                 );
-                                if (
-                                  timeDiffInHours >= 1 &&
-                                  timeDiffInHours <= 24
-                                ) {
-                                  return <span>{timeDiffInHours}h</span>;
+                                if (timeDiffInMinutes < 60) {
+                                  return <span>{timeDiffInMinutes}m</span>;
                                 } else {
-                                  return (
-                                    <span>
-                                      {new Date(tweet.createdAt).toLocaleString(
-                                        "default",
-                                        {
+                                  const timeDiffInHours = Math.round(
+                                    timeDiffInMinutes / 60
+                                  );
+                                  if (
+                                    timeDiffInHours >= 1 &&
+                                    timeDiffInHours <= 24
+                                  ) {
+                                    return <span>{timeDiffInHours}h</span>;
+                                  } else {
+                                    return (
+                                      <span>
+                                        {new Date(
+                                          tweet.createdAt
+                                        ).toLocaleString("default", {
                                           month: "short",
                                           day: "numeric",
-                                        }
-                                      )}
-                                    </span>
-                                  );
+                                        })}
+                                      </span>
+                                    );
+                                  }
                                 }
                               })()}
                             </>
@@ -275,7 +280,7 @@ export default function Profile() {
                               className="cursor-pointer"
                               onClick={() => handleRemoveTweet(tweet._id)}
                             >
-                              <i className="bi bi-trash-fill"></i>
+                              <i className="bi bi-trash"></i>
                             </div>
                           )}
                         </div>

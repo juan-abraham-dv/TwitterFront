@@ -9,6 +9,7 @@ import Followers from "./components/Followers";
 import Following from "./components/Following";
 import Logout from "./components/Logout";
 import ProtectedRoute from "./components/ProtectedRoute";
+import NotFound404 from "./components/NotFound404";
 import { PersistGate } from "redux-persist/integration/react";
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
               <Route path=":id/following" element={<Following />} />
               <Route path="/logout" element={<Logout />} />
             </Route>
+            <Route path="*" element={<NotFound404 />}></Route>
           </Routes>
         </div>
       </PersistGate>

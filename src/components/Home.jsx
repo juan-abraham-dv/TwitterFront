@@ -4,7 +4,6 @@ import RightPartial from "./RightPartial";
 import axios from "axios";
 import "./Home.css";
 import { useSelector } from "react-redux";
-import noProfileiImage from "./img/fakeprofile.jpg";
 import { Link } from "react-router-dom";
 
 function Home() {
@@ -39,12 +38,10 @@ function Home() {
         Authorization: `Bearer ${loggedUser.token}`,
       },
     });
-
-    setTweets((prev) => [newTweet, ...prev]);
     newTweet.author = loggedUser;
+    setTweets((prev) => [newTweet, ...prev]);
     setContent("");
   };
-
   const handleLikeTweet = async (tweetId) => {
     const { data: updatedLikesList } = await axios({
       method: "PATCH",
@@ -111,15 +108,17 @@ function Home() {
           </div>
           <div>
             {tweets.map((tweet) => {
-              const timeDiffInMinutes = Math.round(
-                (Date.now() - new Date(tweet.createdAt).getTime()) / (1000 * 60)
+              const timeDiffInSeconds = Math.round(
+                (Date.now() - new Date(tweet.createdAt).getTime()) / 1000
               );
               return (
                 <div key={tweet._id} className="m-3">
                   <div className="row all-tweets-box">
                     <div className="col-2 text-center">
                       <Link
-                        to={`/profile/${tweet.author._id}`}
+                        to={`/profile/${
+                          tweet.author._id ? tweet.author._id : tweet.author.id
+                        }`}
                         className="text-decoration-none text-black"
                       >
                         <img
@@ -136,7 +135,11 @@ function Home() {
                     <div className="col-10 mb-3">
                       <small className="fs-6 fw-bold">
                         <Link
-                          to={`/profile/${tweet.author._id}`}
+                          to={`/profile/${
+                            tweet.author._id
+                              ? tweet.author._id
+                              : tweet.author.id
+                          }`}
                           className="text-decoration-none text-black"
                         >
                           {tweet.author.firstname} {tweet.author.lastname}
@@ -148,32 +151,39 @@ function Home() {
                       </small>
                       <small className="text-secondary fw-light">
                         {" "}
-                        •{" "}
-                        {timeDiffInMinutes < 60 ? (
-                          <span>{timeDiffInMinutes}m</span>
+                        •
+                        {timeDiffInSeconds < 60 ? (
+                          <span>{timeDiffInSeconds}s</span>
                         ) : (
                           <>
                             {(() => {
-                              const timeDiffInHours = Math.round(
-                                timeDiffInMinutes / 60
+                              const timeDiffInMinutes = Math.round(
+                                timeDiffInSeconds / 60
                               );
-                              if (
-                                timeDiffInHours >= 1 &&
-                                timeDiffInHours <= 24
-                              ) {
-                                return <span>{timeDiffInHours}h</span>;
+                              if (timeDiffInMinutes < 60) {
+                                return <span>{timeDiffInMinutes}m</span>;
                               } else {
-                                return (
-                                  <span>
-                                    {new Date(tweet.createdAt).toLocaleString(
-                                      "default",
-                                      {
-                                        month: "short",
-                                        day: "numeric",
-                                      }
-                                    )}
-                                  </span>
+                                const timeDiffInHours = Math.round(
+                                  timeDiffInMinutes / 60
                                 );
+                                if (
+                                  timeDiffInHours >= 1 &&
+                                  timeDiffInHours <= 24
+                                ) {
+                                  return <span>{timeDiffInHours}h</span>;
+                                } else {
+                                  return (
+                                    <span>
+                                      {new Date(tweet.createdAt).toLocaleString(
+                                        "default",
+                                        {
+                                          month: "short",
+                                          day: "numeric",
+                                        }
+                                      )}
+                                    </span>
+                                  );
+                                }
                               }
                             })()}
                           </>
