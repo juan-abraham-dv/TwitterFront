@@ -186,11 +186,11 @@ export default function Profile() {
                         <small className="all-tweets-box-name">
                           {user.firstname} {user.lastname}
                         </small>
-                        <small className="all-tweets-box-username">
+                        <small className="text-secondary">
                           {" "}
                           @{user.username}
                         </small>
-                        <small>
+                        <small className="text-secondary">
                           {" "}
                           •{" "}
                           {timeDiffInMinutes < 60 ? (

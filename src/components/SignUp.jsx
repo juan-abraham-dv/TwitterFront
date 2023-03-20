@@ -1,17 +1,15 @@
 import axios from "axios";
-import { useDispatch } from "react-redux";
-import { useState, useEffect } from "react";
-import { storeUser } from "../Redux/userReducer";
+import { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
 
 export default function SignUp() {
-  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [userName, setUserName] = useState("");
   const [image, setImage] = useState(null);
   const [password, setPassword] = useState("");
-  const [loggedUserData, setLoggedUserData] = useState(null);
 
   const handleUserCreation = async (event) => {
     event.preventDefault();
@@ -23,19 +21,10 @@ export default function SignUp() {
     formData.append("password", password);
     formData.append("image", image);
 
-    const response = await axios.post(
-      `${process.env.REACT_APP_BACKEND_URL}/users`,
-      formData
-    );
+    await axios.post(`${process.env.REACT_APP_BACKEND_URL}/users`, formData);
 
-    setLoggedUserData(response.data);
+    navigate("/login");
   };
-
-  useEffect(() => {
-    if (loggedUserData !== null) {
-      dispatch(storeUser({ loggedUserData }));
-    }
-  }, [loggedUserData]);
 
   return (
     <>
@@ -139,9 +128,9 @@ export default function SignUp() {
 
                     <p className="text-center">
                       Already have an account?{" "}
-                      <a href="/login" className="text-decoration-none">
+                      <Link to={"/login"} className="text-decoration-none">
                         Sign in
-                      </a>{" "}
+                      </Link>{" "}
                     </p>
                   </div>
                 </form>

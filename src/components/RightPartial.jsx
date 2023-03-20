@@ -1,10 +1,48 @@
 import React from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { addFollowing } from "../Redux/userReducer";
+import { Link } from "react-router-dom";
+
 function RightPartial() {
+  const [users, setUsers] = useState([]);
+  const loggedUser = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const getWhoToFollow = async () => {
+      const response = await axios({
+        method: "GET",
+        url: `${process.env.REACT_APP_BACKEND_URL}/users/who-to-follow`,
+        headers: {
+          Authorization: `Bearer ${loggedUser.token}`,
+        },
+      });
+      setUsers(response.data);
+    };
+    getWhoToFollow();
+  }, []);
+
+  const handleFollowUser = async (userId) => {
+    const { data: updatedFollowData } = await axios({
+      method: "PATCH",
+      url: `${process.env.REACT_APP_BACKEND_URL}/users/${userId}/follow`,
+      headers: {
+        Authorization: `Bearer ${loggedUser.token}`,
+      },
+    });
+
+    const followingList = updatedFollowData.followingList;
+
+    dispatch(addFollowing({ followingList }));
+  };
+
   return (
-    <div className="col-lg-4 col-2 right-partial responsive-sd">
+    <div className="col-lg-4 col-2 right-partial responsive-sd d-flex justify-content-start">
       <div className="row">
-        <div className="col-5">
-          <div className="col-8 news-box ms-auto mt-3">
+        <div className="col-12">
+          <div className="col-8 news-box ms-auto mt-3 px-3">
             <h3 className="news-box-title ms-2 mt-3">Trends for you</h3>
             <div className="flex-column">
               <small className="d-block ms-2 mt-3 news-box-p1">
@@ -33,131 +71,60 @@ function RightPartial() {
             </div>
           </div>
 
-          <div className="col-8 follow-box ms-auto mt-3">
+          <div className="col-8 follow-box ms-auto mt-3 px-4">
             <h3 className="news-box-title mt-3 mb-3 ms-2">Who to follow</h3>
-            <div className="row mt-2">
-              <div className="col-2">
-                <img
-                  src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
-                  alt=""
-                  className="image-hardcore-aside rounded-circle ms-2"
-                />
-              </div>
-              <div className="col-6 ms-2">
-                <h4 className="follow-content follow-title mb-0 mt-1">
-                  Hack Academy
-                </h4>
-                <h4 className="follow-subtitle fw-light text-secondary">
-                  @HackAcademyDev
-                </h4>
-              </div>
-              <div className="col-3">
-                <button
-                  className="btn btn-hardcode text-white rounded-pill"
-                  href="/"
-                >
-                  Follow
-                </button>
-              </div>
-            </div>
-            <div className="row mt-2">
-              <div className="col-2">
-                <img
-                  src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
-                  alt=""
-                  className="image-hardcore-aside rounded-circle ms-2"
-                />
-              </div>
-              <div className="col-6 ms-2">
-                <h4 className=" follow-title mb-0 mt-1">Java Script</h4>
-                <h4 className="follow-subtitle fw-light text-secondary">
-                  @JavaScript
-                </h4>
-              </div>
-              <div className="col-3">
-                <a
-                  className="btn btn-hardcode text-white rounded-pill"
-                  href="/"
-                  role="button"
-                >
-                  Follow
-                </a>
-              </div>
-            </div>
-            <div className="row mt-2">
-              <div className="col-2">
-                <img
-                  src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
-                  alt=""
-                  className="image-hardcore-aside rounded-circle ms-2"
-                />
-              </div>
-              <div className="col-6 ms-2">
-                <h4 className="follow-title mb-0 mt-1">MongoDB</h4>
-                <h4 className="follow-subtitle fw-light text-secondary">
-                  @MongoDB
-                </h4>
-              </div>
-              <div className="col-3">
-                <a
-                  className="btn btn-hardcode text-white rounded-pill"
-                  href="/"
-                  role="button"
-                >
-                  Follow
-                </a>
-              </div>
-            </div>
-            <div className="row mt-2">
-              <div className="col-2">
-                <img
-                  src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
-                  alt=""
-                  className="image-hardcore-aside rounded-circle ms-2"
-                />
-              </div>
-              <div className="col-6 ms-2">
-                <h4 className="follow-title mb-0 mt-1">NodeJs</h4>
-                <h4 className="follow-subtitle fw-light text-secondary">
-                  @NodeJs
-                </h4>
-              </div>
-              <div className="col-3">
-                <a
-                  className="btn btn-hardcode text-white rounded-pill text-center"
-                  href="/"
-                  role="button"
-                >
-                  Follow
-                </a>
-              </div>
-            </div>
-            <div className="row mt-2">
-              <div className="col-2">
-                <img
-                  src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
-                  alt=""
-                  className="image-hardcore-aside rounded-circle ms-2"
-                />
-              </div>
-              <div className="col-6 ms-2 mb-3">
-                <h4 className="follow-title mb-0 mt-1">MDN Web Docs</h4>
-                <h4 className="follow-subtitle fw-light text-secondary">
-                  @MDN Web Docs
-                </h4>
-              </div>
-              <div className="col-3">
-                <a
-                  className="btn btn-hardcode text-white rounded-pill"
-                  href="/"
-                  role="button"
-                >
-                  Follow
-                </a>
-              </div>
-            </div>
 
-            <div className="col-6"></div>
+            {users.map((user) => {
+              return (
+                <div className="row mt-2">
+                  <div className="col-2">
+                    <Link to={`/profile/${user._id}`}>
+                      <img
+                        src={`${user.image}`}
+                        alt="user profile picture"
+                        className="image-hardcore-aside rounded-circle ms-2"
+                      />
+                    </Link>
+                  </div>
+                  <div className="col-6 ms-2">
+                    <Link
+                      to={`/profile/${user._id}`}
+                      className="text-decoration-none"
+                    >
+                      <h4 className="follow-content follow-title mb-0 mt-1">
+                        {user.firstname} {user.lastname}
+                      </h4>
+                      <h4 className="follow-subtitle fw-light text-secondary">
+                        {user.username}
+                      </h4>
+                    </Link>
+                  </div>
+                  <div className="col-3">
+                    {loggedUser.following.includes(user._id) ? (
+                      <div
+                        className="btn following-btn-medium text-black rounded-pill"
+                        role="button"
+                        onClick={() => {
+                          handleFollowUser(user._id);
+                        }}
+                      >
+                        Following
+                      </div>
+                    ) : (
+                      <div
+                        className="btn follow-btn-medium text-white rounded-pill"
+                        onClick={() => {
+                          handleFollowUser(user._id);
+                        }}
+                        role="button"
+                      >
+                        Follow
+                      </div>
+                    )}
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>

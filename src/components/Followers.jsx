@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import { addFollowing } from "../Redux/userReducer";
+import noFollow from "./img/no_follow.png";
 
 function Followers() {
   const [user, setUser] = useState();
@@ -76,54 +77,73 @@ function Followers() {
                 <span className="active-section-border-follow"></span>
               </div>
             </div>
-            {user.followers.map((follower) => {
-              return (
-                <div key={follower._id} className="row tweet-list mt-3">
-                  <div className="col-2 text-center">
-                    <Link
-                      className="link-follow"
-                      to={`/profile/${follower._id}`}
-                    >
-                      <img
-                        src={follower.image}
-                        alt=""
-                        className="rounded-circle follow-tweet-profile-img"
-                      />
-                    </Link>
-                  </div>
-                  <div className="col-6">
-                    <Link
-                      className="link-follow"
-                      to={`/profile/${follower._id}`}
-                    >
-                      <h4 className="follow-content follow-title mb-1">
-                        {follower.firstname}
-                      </h4>
-                      <h4 className="follow-content follow-subtitle text-secondary fw-light">
-                        @{follower.username}
-                      </h4>
-                    </Link>
-                  </div>
-                  <div className="col-2">
-                    {loggedUser.following.includes(follower._id) ? (
-                      <button
-                        onClick={() => handleFollowUser(follower._id)}
-                        className="text-decoration-none text-black btn following-btn-medium text-black rounded-pill mt-2 ms-3"
+
+            {user.followers.length > 0 ? (
+              user.followers.map((follower) => {
+                return (
+                  <div key={follower._id} className="row tweet-list mt-3">
+                    <div className="col-2 text-center">
+                      <Link
+                        className="link-follow"
+                        to={`/profile/${follower._id}`}
                       >
-                        Following
-                      </button>
-                    ) : (
-                      <button
-                        onClick={() => handleFollowUser(follower._id)}
-                        className="text-decoration-none text-black btn follow-btn-medium text-white rounded-pill mt-2 ms-3"
+                        <img
+                          src={follower.image}
+                          alt=""
+                          className="rounded-circle follow-tweet-profile-img"
+                        />
+                      </Link>
+                    </div>
+                    <div className="col-6">
+                      <Link
+                        className="link-follow"
+                        to={`/profile/${follower._id}`}
                       >
-                        Follow
-                      </button>
-                    )}
+                        <h4 className="follow-content follow-title mb-1">
+                          {follower.firstname}
+                        </h4>
+                        <h4 className="follow-content follow-subtitle text-secondary fw-light">
+                          @{follower.username}
+                        </h4>
+                      </Link>
+                    </div>
+                    <div className="col-2">
+                      {loggedUser.following.includes(follower._id) ? (
+                        <button
+                          onClick={() => handleFollowUser(follower._id)}
+                          className="text-decoration-none text-black btn following-btn-medium text-black rounded-pill mt-2 ms-3"
+                        >
+                          Following
+                        </button>
+                      ) : (
+                        <button
+                          onClick={() => handleFollowUser(follower._id)}
+                          className="text-decoration-none text-black btn follow-btn-medium text-white rounded-pill mt-2 ms-3"
+                        >
+                          Follow
+                        </button>
+                      )}
+                    </div>
                   </div>
+                );
+              })
+            ) : (
+              <>
+                <div className="w-75 mx-auto mt-5">
+                  <img
+                    src={`${noFollow}`}
+                    alt="Birds in powerline"
+                    width={"90%"}
+                    className="mb-4"
+                  />
+                  <h2 className="bolder-text">Looking for followers?</h2>
+                  <p className="text-secondary smaller-text">
+                    When someone follows this account, they’ll show up here.
+                    Tweeting and interacting with others helps boost followers.
+                  </p>
                 </div>
-              );
-            })}
+              </>
+            )}
           </div>
         ) : (
           <div>Loading...</div>

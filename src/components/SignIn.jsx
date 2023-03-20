@@ -1,15 +1,14 @@
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { storeUser } from "../Redux/userReducer";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 export default function SignIn() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [loggedUserData, setLoggedUserData] = useState(null);
 
   const handleUserLogin = async (event) => {
     event.preventDefault();
@@ -20,19 +19,9 @@ export default function SignIn() {
       formData
     );
 
-    //setLoggedUserData(response.data);
     dispatch(storeUser(response.data));
     navigate("/");
   };
-
-  {
-    /* useEffect(() => {
-    if (loggedUserData !== null && loggedUserData !== "") {
-      dispatch(storeUser({ loggedUserData }));
-      navigate("/");
-    }
-  }, [loggedUserData]); */
-  }
 
   return (
     <div className="register-main-container register-background">
@@ -88,9 +77,10 @@ export default function SignIn() {
 
                   <p className="text-center">
                     Don't have an account?
-                    <a href="/register" className="text-decoration-none">
+                    <Link to={"/signup"} className="text-decoration-none">
+                      {" "}
                       Sign up
-                    </a>
+                    </Link>
                   </p>
                 </div>
               </form>
