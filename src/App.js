@@ -8,6 +8,7 @@ import Profiles from "./components/Profiles";
 import Followers from "./components/Followers";
 import Following from "./components/Following";
 import Logout from "./components/Logout";
+import ProtectedRoute from "./components/ProtectedRoute";
 import { PersistGate } from "redux-persist/integration/react";
 
 function App() {
@@ -16,13 +17,15 @@ function App() {
       <PersistGate loading={null} persistor={persistor}>
         <div className="App">
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="signup" element={<SignUp />} />
             <Route path="login" element={<SignIn />} />
-            <Route path="profile/:id" element={<Profiles />} />
-            <Route path=":id/followers" element={<Followers />} />
-            <Route path=":id/following" element={<Following />} />
-            <Route path="/logout" element={<Logout />} />
+            <Route element={<ProtectedRoute />}>
+              <Route path="/" element={<Home />} />
+              <Route path="signup" element={<SignUp />} />
+              <Route path="profile/:id" element={<Profiles />} />
+              <Route path=":id/followers" element={<Followers />} />
+              <Route path=":id/following" element={<Following />} />
+              <Route path="/logout" element={<Logout />} />
+            </Route>
           </Routes>
         </div>
       </PersistGate>
