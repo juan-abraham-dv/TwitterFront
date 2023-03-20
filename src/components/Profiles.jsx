@@ -82,7 +82,7 @@ export default function Profile() {
         <div className="row gx-5">
           <LeftPartial />
           {user && tweets ? (
-            <div className="col-5 p-0">
+            <div className="col-5 p-0 central-box-responsive">
               <div className="d-flex align-items-center profile-central-navbar px-3">
                 <div className="d-flex justify-content-center align-items-center h-100 me-4">
                   <i

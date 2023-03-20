@@ -373,6 +373,11 @@ body {
     display: none;
   }
 }
+@media (max-width: 768px) {
+  .central-box-responsive {
+    width: 55vw;
+  }
+}
 
 /* Left Partial */
 

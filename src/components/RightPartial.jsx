@@ -40,8 +40,8 @@ function RightPartial() {
 
   return (
     <div className="col-lg-4 col-2 right-partial responsive-sd d-flex justify-content-start">
-      <div className="row">
-        <div className="col-12">
+      <div className="row responsive-sd">
+        <div className="col-12 d">
           <div className="col-8 news-box ms-auto mt-3 px-3">
             <h3 className="news-box-title ms-2 mt-3">Trends for you</h3>
             <div className="flex-column">
