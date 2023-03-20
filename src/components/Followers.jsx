@@ -48,7 +48,7 @@ function Followers() {
       <div className="row gx-5">
         <LeftPartial />
         {user ? (
-          <div className="col-5 followlist-central-box">
+          <div className="col-5 followlist-central-box central-box-responsive">
             <div className="row new-tweet-box">
               <div className="col-2 mt-4">
                 <i

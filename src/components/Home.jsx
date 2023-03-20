@@ -67,7 +67,7 @@ function Home() {
     <div className="home-main-container">
       <div className="row gx-5">
         <LeftPartial />
-        <div className="col-5 p-0">
+        <div className="col-5 p-0 central-box-responsive">
           <div className="home-central-navbar">
             <h1 className="title-tweet-box fw-bold">Home</h1>
           </div>
