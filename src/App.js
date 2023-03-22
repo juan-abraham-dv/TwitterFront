@@ -19,9 +19,9 @@ function App() {
         <div className="App">
           <Routes>
             <Route path="login" element={<SignIn />} />
+            <Route path="signup" element={<SignUp />} />
             <Route element={<ProtectedRoute />}>
               <Route path="/" element={<Home />} />
-              <Route path="signup" element={<SignUp />} />
               <Route path="profile/:id" element={<Profiles />} />
               <Route path=":id/followers" element={<Followers />} />
               <Route path=":id/following" element={<Following />} />
