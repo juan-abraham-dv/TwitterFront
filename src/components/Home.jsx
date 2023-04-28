@@ -78,6 +78,8 @@ function Home() {
                   <img
                     alt={loggedUser.username}
                     src={
+                      loggedUser &&
+                      loggedUser.image &&
                       loggedUser.image.includes("http")
                         ? loggedUser.image
                         : `${process.env.REACT_APP_BACKEND_URL}/img/${loggedUser.image}`

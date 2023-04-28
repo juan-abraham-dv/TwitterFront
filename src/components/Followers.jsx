@@ -27,7 +27,7 @@ function Followers() {
       setUser(response.data);
     };
     getUserData();
-  }, []);
+  }, [loggedUser.token, params.id]);
 
   const handleFollowUser = async (followerId) => {
     const { data: updatedFollowData } = await axios({
