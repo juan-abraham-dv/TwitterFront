@@ -4,7 +4,7 @@
 
 This application allows to use CRUD, in regards to Tweets. As well as following and unfollowing other users, there is also the possibility of giving likes to your own or someone else's Tweets. The application was designed in a Responsive way, both for Cell Phones, Tablets or Computers.
 
-# In summary, the application is similar to what the original Twitter would be.
+`In summary, the application is similar to what the original Twitter would be.`
 
 In the `Back End`, `Node.js` was used, and it was complemented with NPM, Express for general operation,
 -Persist so that when reloading the page you don't have to log in repeatedly.
@@ -25,6 +25,8 @@ password: 1234
 
 # Creators of this app:
 
-https://github.com/juan-abraham-dv
-https://github.com/andy-viera
-https://github.com/nachodecores
+Juan Abraham (https://github.com/juan-abraham-dv)
+
+Andrés Viera (https://github.com/andy-viera)
+
+Ignacio De Cores (https://github.com/nachodecores)
