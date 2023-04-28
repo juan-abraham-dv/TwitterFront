@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { addFollowing } from "../Redux/userReducer";
+import { addFollowing } from "../redux/userReducer";
 import { Link } from "react-router-dom";
 
 function RightPartial() {
@@ -22,7 +22,7 @@ function RightPartial() {
       setUsers(response.data);
     };
     getWhoToFollow();
-  }, []);
+  }, [loggedUser.token]);
 
   const handleFollowUser = async (userId) => {
     const { data: updatedFollowData } = await axios({

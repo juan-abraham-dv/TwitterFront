@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import axios from "axios";
-import { addFollowing } from "../Redux/userReducer";
+import { addFollowing } from "../redux/userReducer";
 import noFollow from "./img/no_follow.png";
 
 function Followings() {
@@ -27,7 +27,7 @@ function Followings() {
       setUser(response.data);
     };
     getUserData();
-  }, []);
+  }, [loggedUser.token, params.id]);
 
   const handleFollowUser = async (followerId) => {
     const { data: updatedFollowData } = await axios({

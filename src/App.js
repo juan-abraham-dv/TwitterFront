@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import { Provider } from "react-redux";
-import { store, persistor } from "./Redux/storeConfig";
+import { store, persistor } from "./redux/storeConfig";
 import Home from "./components/Home";
 import SignUp from "./components/SignUp";
 import SignIn from "./components/SignIn";

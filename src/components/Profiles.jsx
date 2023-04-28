@@ -5,7 +5,7 @@ import { useParams, useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import LeftPartial from "./LeftPartial";
 import RightPartial from "./RightPartial";
-import { addFollowing } from "../Redux/userReducer";
+import { addFollowing } from "../redux/userReducer";
 
 export default function Profile() {
   const [tweets, setTweets] = useState([]);

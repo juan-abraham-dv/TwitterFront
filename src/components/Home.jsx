@@ -23,7 +23,7 @@ function Home() {
       setTweets(response.data);
     };
     getTweets();
-  }, []);
+  }, [loggedUser.token]);
 
   const handleCreateTweet = async (event) => {
     event.preventDefault();
